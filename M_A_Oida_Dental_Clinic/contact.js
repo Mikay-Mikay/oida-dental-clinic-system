@@ -1,0 +1,44 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // Highlight active navigation link
+    const currentPage = window.location.pathname.split("/").pop();
+    const navLinks = document.querySelectorAll(".nav-links a");
+    
+    navLinks.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active"); // Add 'active' class to highlight current page
+        }
+    });
+
+    // Smooth transition when navigating between pages
+    const pageLinks = document.querySelectorAll(".nav-links a, .book-now");
+    
+    pageLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            const target = this.getAttribute("href");
+
+            // Apply fade-out effect before navigating
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+                window.location.href = target;
+            }, 300); // Transition duration
+        });
+    });
+
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            document.getElementById(targetId).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
+
+    // Fade-in effect when page loads
+    document.body.style.opacity = "0";
+    setTimeout(() => {
+        document.body.style.opacity = "1";
+    }, 300);
+});
