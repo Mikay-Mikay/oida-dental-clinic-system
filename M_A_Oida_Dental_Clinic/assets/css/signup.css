@@ -1,0 +1,196 @@
+/* General Styles */
+body {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100;
+    background-color: #A1C2F1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    src: url(https://fonts.gstatic.com/s/poppins/v22/pxiGyp8kv8JHgFVrLPTufntAKPY.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Layout for Sign-up Form and Logo */
+.container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Sign-up Form Container */
+.signup-box {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 450px;
+    text-align: center;
+    border: 3px solid #9370DB;
+}
+
+/* Form Header */
+h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+h2::before, h2::after {
+    content: "———";
+    margin: 0 10px;
+    color: #9370DB;
+}
+
+/* Input Fields */
+.form-group label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group label.required::before {
+    content: "*";
+    color: red;
+    margin-right: 3px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+
+.form-group {
+    width: 48%; /* Para mag-two-column layout */
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        width: 100%;
+    }
+}
+
+input, select {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Full Width Inputs */
+input[type="date"], input[type="password"], input[type="email"], input[type="text"].full-width {
+    width: 100%;
+}
+
+/* Checkbox and Terms */
+.terms {
+    display: flex;
+    align-items: center; /* Aligns items vertically */
+    gap: 8px; /* Adds some spacing between checkbox and text */
+    font-size: 14px;
+}
+
+
+.terms-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Adjust spacing as needed */
+}
+
+.terms input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    background-color: #9370DB;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #7b5eb2;
+}
+
+/* Login Link */
+p {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+a {
+    color: #6a5acd;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Logo and Clinic Name */
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 300px; 
+    height: 300px;
+    border-radius: 50%; 
+    background-color: white; 
+    padding: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.logo-container {
+    text-align: center;
+    width: 50%;
+}
+
+.logo-container img {
+    width: 300px; 
+    height: 300px;
+    border-radius: 100%; 
+    object-fit: cover; 
+    border: 5px solid white; 
+}
+
+.clinic-name {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 25px; 
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px; 
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}

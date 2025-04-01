@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - M&A Oida Dental Clinic</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/script.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form id="login-form" action="login.php" method="POST">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="ex. Juandelacruz@gmail.com" required>
+            
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+                <a href="forgotpassword.html" class="forgot-password">Forgot Password?</a>
+                
+
+                <button type="submit" class="login-btn">Login</button>
+
+                <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+            </form>
+        </div>
+        <div class="logo-container">
+            <img src="assets/photos/logo.jpg" alt="Clinic Logo">
+            <h1>M&A Oida Clinic Clinic</h1>
+        </div>
+    </div>
+</body>
+</html>
