@@ -1,0 +1,2 @@
+INSERT INTO patient (first_name, middle_name, last_name, email, phone_number, region, province, city, barangay, zip_code, date_of_birth, password_hash, gender) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
