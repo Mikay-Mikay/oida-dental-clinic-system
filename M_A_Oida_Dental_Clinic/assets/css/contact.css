@@ -1,0 +1,241 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.user-icon {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.user-icon:hover {
+    color: #0d6efd;
+}
+
+/* Navigation Bar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #a6c8ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #0d6efd;
+}
+
+/* Container for User Icon and Book Now */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* User Icon */
+.user-icon {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.user-icon:hover {
+    color: #0d6efd;
+}
+
+/* Book Now Button */
+.book-now {
+    background-color: #0d6efd;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+
+/* Logo Styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 80px; /* Adjust size as needed */
+    height: 80px; /* Ensure it's a square */
+    border-radius: 40%; /* Makes it circular */
+    object-fit: cover; /* Ensures the image fills the circle properly */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #0d6efd; /* Change color if needed */
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a:focus::after {
+    width: 100%;
+}
+
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #0d6efd;
+}
+
+.book-now {
+    background-color: #0d6efd;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+/* Contact Us Section */
+.contact-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Image Styling */
+.contact-image {
+    width: 50%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Info Box */
+.contact-info {
+    width: 50%;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info h2 {
+    font-size: 24px;
+    color: #003087;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Contact Details */
+.contact-details {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.contact-details strong {
+    color: #003087;
+    font-weight: bold;
+}
+
+.contact-details a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contact-image {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .contact-info {
+        width: 100%;
+    }
+}
