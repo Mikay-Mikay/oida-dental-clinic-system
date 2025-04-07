@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - M&A Oida Dental Clinic</title>
+    <link rel="stylesheet" href="assets/css/bookings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="assets/js/bookings.js"></script>
+    <script src="assets/js/appoinment_schedule.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
+            <ul class="nav-links">
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="clinics.html">Clinics</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="user-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <button class="book-now">Book Now</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="appointment-container">
+        <h2 class="form-title">Appointment Form</h2>
+
+        <div class="progress-bar">
+            <div class="step active">Personal Information</div>
+            <div class="step">Services</div>
+            <div class="step">Appointment Schedule</div>
+            <div class="step">Price</div>
+            <div class="step">Booking Summary</div>
+        </div>
+
+        <form id="appointment-form">
+            <!-- Step 1: Personal Info -->
+            <div class="form-step active">
+                <h3>Personal Information</h3>
+
+                <label>Full Name:</label>
+                <div class="input-with-icon">
+                    <input type="text" placeholder="(AUTOMATIC NAME)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <label>Email Address:</label>
+                <div class="input-with-icon">
+                    <input type="email" placeholder="(AUTOMATIC EMAIL ADDRESS)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <label>Contact Number:</label>
+                <div class="input-with-icon">
+                    <input type="text" placeholder="(AUTOMATIC CONTACT NUMBER)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+
+                <p class="info-note">
+                    <i class="fa-solid fa-circle-info"></i> You can edit your personal details as needed...
+                </p>
+
+                <div class="btns">
+                    <button class="next-btn" type="button">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Services -->
+            <div class="form-step">
+                <div class="services-section">
+                    <h3>Types of Services:</h3>
+                    <div class="checkbox-grid">
+                        <!-- Services List -->
+                        <label><input type="checkbox" name="services[]" value="Dental Check-ups & Consultation"> Dental Check-ups & Consultation</label>
+                        <label><input type="checkbox" name="services[]" value="Teeth Cleaning"> Teeth Cleaning (Oral Prophylaxis)</label>
+                        <label><input type="checkbox" name="services[]" value="Tooth Extraction"> Tooth Extraction</label>
+                        <label><input type="checkbox" name="services[]" value="Dental Fillings"> Dental Fillings</label>
+                        <label><input type="checkbox" name="services[]" value="Gum Treatment"> Gum Treatment (Periodontal Care)</label>
+                        <label><input type="checkbox" name="services[]" value="Teeth Whitening"> Teeth Whitening</label>
+                        <label><input type="checkbox" name="services[]" value="Dental Veneers"> Dental Veneers</label>
+                        <label><input type="checkbox" name="services[]" value="Dental Bonding"> Dental Bonding</label>
+                        <label><input type="checkbox" name="services[]" value="Metal Braces"> Metal Braces</label>
+                        <label><input type="checkbox" name="services[]" value="Ceramic Braces"> Ceramic Braces</label>
+                        <label><input type="checkbox" name="services[]" value="Clear Aligners"> Clear Aligners (Invisalign, ClearCorrect, etc.)</label>
+                        <label><input type="checkbox" name="services[]" value="Retainers"> Retainers</label>
+                        <label><input type="checkbox" name="services[]" value="Dental Crown"> Dental Crown</label>
+                        <label><input type="checkbox" name="services[]" value="Dental Bridges"> Dental Bridges</label>
+                        <label><input type="checkbox" name="services[]" value="Dentures"> Dentures (Partial & Full)</label>
+                        <label><input type="checkbox" name="services[]" value="Dental Implants"> Dental Implants</label>
+                        <label><input type="checkbox" name="services[]" value="Fluoride Treatment"> Fluoride Treatment</label>
+                        <label><input type="checkbox" name="services[]" value="Dental Sealants"> Dental Sealants</label>
+                        <label><input type="checkbox" name="services[]" value="Kids' Braces"> Kids’ Braces & Orthodontic Care</label>
+                        <label><input type="checkbox" name="services[]" value="Wisdom Tooth Extraction"> Wisdom Tooth Extraction (Odontectomy)</label>
+                        <label><input type="checkbox" name="services[]" value="Root Canal Treatment"> Root Canal Treatment (Endodontics)</label>
+                        <label><input type="checkbox" name="services[]" value="TMJ Treatment"> TMJ Treatment</label>
+                        <label><input type="checkbox" name="services[]" value="Intraoral X-ray"> Intraoral X-ray</label>
+                        <label><input type="checkbox" name="services[]" value="Panoramic X-rays"> Panoramic X-rays</label>
+                        <label><input type="checkbox" name="services[]" value="Cephalometric X-ray"> Cephalometric X-ray</label>
+                    </div>
+
+                    <p class="note"><span style="color:red;">*Select 2 or more services if necessary*</span></p>
+                    <div class="info-note">
+                        <i class="fa fa-info-circle"></i> 
+                        Please select the dental service you need. If you're unsure, choose ‘Dental Check-up & Consultation,’ and our dentist will assess the best treatment for you.
+                    </div>
+                </div>
+
+                <div class="btns">
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Schedule -->
+            <div class="form-step">
+                <h3>Appointment Schedule</h3>
+                <div class="schedule-container">
+                    <div class="form-group">
+                        <label for="clinic">Clinic Branch:</label>
+                        <select id="clinic">
+                            <option value="">Select Branch</option>
+                            <option value="Commonwealth Branch">Commonwealth Branch</option>
+                            <option value="North Fairview Branch">North Fairview Branch</option>
+                            <option value="Maligaya Park Branch">Maligaya Park Branch</option>
+                            <option value="San Isidro Branch">San Isidro Branch</option>
+                            <option value="Quiapo Branch">Quiapo Branch</option>
+                            <option value="Kiko Branch">Kiko Branch</option>
+                            <option value="Bagong Silang Branch">Bagong Silang Branch</option>
+                        </select>
+                        <p class="tip">*Tip: Choose a branch near you*</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Select Date:</label>
+                        <input type="date" id="appointment-date">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select Time Slot:</label>
+                        <div class="time-slots">
+                            <button type="button" class="time-slot">10:00 AM - 11:00 AM</button>
+                            <button type="button" class="time-slot">11:00 AM - 12:00 PM</button>
+                            <button type="button" class="time-slot">1:00 PM - 2:00 PM</button>
+                            <button type="button" class="time-slot">2:00 PM - 3:00 PM</button>
+                            <button type="button" class="time-slot">3:00 PM - 4:00 PM</button>
+                            <button type="button" class="time-slot">4:00 PM - 5:00 PM</button>
+                            <button type="button" class="time-slot">5:00 PM - 6:00 PM</button>
+                            <button type="button" class="time-slot">6:00 PM - 7:00 PM</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group selected-info">
+                        <p><strong>Selected Date and Time:</strong> <span id="selected-schedule">None</span></p>
+                    </div>
+
+                    <div class="form-group calendar-group">
+                        <label for="calendar">Calendar View:</label>
+                        <div id="calendar"></div>
+                    </div>
+
+                    <div class="info-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Please select your preferred date and time for the appointment. Availability may vary.
+                    </div>
+                </div>
+
+                <div class="btns">
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Price -->
+            <div class="form-step">
+                <h3>Price</h3>
+                <p>Total estimated cost will be displayed here.</p>
+                <div class="btns">
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Booking Summary -->
+            <div class="form-step">
+                <h3>Booking Summary</h3>
+                <p>Review your appointment details before confirming.</p>
+                <div class="btns">
+                    <button type="button" class="back-btn">Back</button>
+                    <button type="submit" class="submit-btn">Confirm Booking</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
