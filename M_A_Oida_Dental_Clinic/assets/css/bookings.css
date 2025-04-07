@@ -1,0 +1,476 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.user-icon {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.user-icon:hover {
+    color: #0d6efd;
+}
+
+/* Navigation Bar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #a6c8ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #0d6efd;
+}
+
+/* Container for User Icon and Book Now */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* User Icon */
+.user-icon {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.user-icon:hover {
+    color: #0d6efd;
+}
+
+/* Book Now Button */
+.book-now {
+    background-color: #0d6efd;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+
+/* Logo Styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 80px; /* Adjust size as needed */
+    height: 80px; /* Ensure it's a square */
+    border-radius: 40%; /* Makes it circular */
+    object-fit: cover; /* Ensures the image fills the circle properly */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #0d6efd; /* Change color if needed */
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a:focus::after {
+    width: 100%;
+}
+
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #0d6efd;
+}
+
+.book-now {
+    background-color: #0d6efd;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+.appointment-container {
+    background: #fff;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.form-title {
+    text-align: center;
+    color: #1d2d5d;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.progress-bar .step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 10px;
+    border-bottom: 3px solid #ccc;
+    color: #999;
+    font-weight: 600;
+}
+
+.progress-bar .step.active {
+    border-bottom: 3px solid #7e3ff2;
+    color: #7e3ff2;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+label {
+    font-weight: 600;
+    display: block;
+    margin: 15px 0 5px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.input-with-icon i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+}
+
+.info-note {
+    font-size: 0.9rem;
+    margin-top: 20px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.next-btn {
+    background-color: #7e3ff2;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+    margin-top: 20px;
+}
+
+.next-btn:hover {
+    background-color: #5a2bc1;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.back-btn,
+.submit-btn {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+.submit-btn {
+    background-color: #28a745;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+.services-section {
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-grid label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 8px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.note {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.info-note {
+    font-size: 13px;
+    color: #333;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.info-note i {
+    color: #0d6efd;
+}
+
+.services-section {
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-grid label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 8px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.note {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.info-note {
+    font-size: 13px;
+    color: #333;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.info-note i {
+    color: #0d6efd;
+}
+
+.schedule-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.schedule-container .form-group {
+    margin-bottom: 20px;
+}
+
+.schedule-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.schedule-container select,
+.schedule-container input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.tip {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 10px;
+    background-color: #e7e7e7;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.time-slot:hover {
+    background-color: #c7dfff;
+}
+
+.time-slot.active {
+    background-color: #7e3ff2;
+    color: white;
+}
+
+.selected-info {
+    margin-top: 15px;
+}
+
+.selected-info span {
+    color: #7e3ff2;
+}
+
+#calendar {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    max-width: 420px;
+    margin-bottom: 20px;
+}
+
+.calendar-day {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+}
+
+.calendar-day:hover {
+    background-color: #e0f7fa;
+}
+
+.calendar-day.disabled {
+    background-color: #eee;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.calendar-day.selected {
+    background-color: #0d6efd;
+    color: #fff;
+}
