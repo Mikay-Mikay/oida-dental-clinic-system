@@ -1,0 +1,401 @@
+/* =======================
+   RESET AND GLOBAL STYLES
+   ======================= */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* =====================
+   NAVIGATION BAR STYLES
+   ===================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #a6c8ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 40%;
+    object-fit: cover;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #0d6efd;
+}
+
+.nav-links li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #0d6efd;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a:focus::after {
+    width: 100%;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-icon {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.user-icon:hover {
+    color: #0d6efd;
+}
+
+.book-now {
+    background-color: #0d6efd;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+/* ====================
+   FORM WRAPPER STYLES
+   ==================== */
+.appointment-container {
+    background: #fff;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.form-title {
+    text-align: center;
+    color: #1d2d5d;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* ======================
+   PROGRESS BAR FOR STEPS
+   ====================== */
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.progress-bar .step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 10px;
+    border-bottom: 3px solid #ccc;
+    color: #999;
+    font-weight: 600;
+}
+
+.progress-bar .step.active {
+    border-bottom: 3px solid #7e3ff2;
+    color: #7e3ff2;
+}
+
+/* ===================
+   FORM STEP TOGGLE
+   =================== */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+/* ====================
+   FORM FIELD STYLING
+   ==================== */
+label {
+    font-weight: 600;
+    display: block;
+    margin: 15px 0 5px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.input-with-icon i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+}
+
+/* ================
+   BUTTON STYLES
+   ================ */
+.btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.back-btn,
+.submit-btn {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+.submit-btn {
+    background-color: #28a745;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+.next-btn {
+    background-color: #7e3ff2;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background-color: #5a2bc1;
+}
+
+/* ==================
+   SERVICES SECTION
+   ================== */
+.services-section {
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-grid label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 8px;
+}
+
+/* ================
+   NOTES & TIPS
+   ================ */
+.note, .tip {
+    font-size: 13px;
+    margin-top: 10px;
+    color: #777;
+}
+
+.info-note {
+    font-size: 13px;
+    color: #333;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.info-note i {
+    color: #0d6efd;
+}
+
+/* ========================
+   APPOINTMENT SCHEDULE STEP
+   ======================== */
+.schedule-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.schedule-container .form-group {
+    margin-bottom: 20px;
+}
+
+.schedule-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.schedule-container select,
+.schedule-container input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* ===============
+   TIME SLOT STYLE
+   =============== */
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 10px;
+    background-color: #fff;
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.time-slot:hover {
+    background-color: #e6f0ff;
+}
+
+.time-slot.selected,
+.time-slot.active {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+
+.time-slot.booked {
+    background-color: #ccc;
+    color: #555;
+    cursor: not-allowed;
+}
+
+/* ==================
+   SELECTED INFO VIEW
+   ================== */
+.selected-info {
+    margin-top: 15px;
+}
+
+.selected-info span {
+    color: #7e3ff2;
+}
+
+/* ==================
+   CUSTOM CALENDAR BOX
+   ================== */
+#calendar {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    max-width: 420px;
+    margin-bottom: 20px;
+}
+
+.calendar-day {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 4px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.2s ease;
+}
+
+.calendar-day:hover {
+    background-color: #f0f8ff;
+}
+
+.calendar-day.selected {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-day.disabled {
+    color: #aaa;
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
