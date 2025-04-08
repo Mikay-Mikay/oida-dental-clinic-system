@@ -1,13 +1,8 @@
 <?php
-session_start();
+require_once('session.php'); // Centralized session check
 require 'db.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id']; // Now guaranteed by session.php
 
 $sql = "
     SELECT 
@@ -42,7 +37,7 @@ $user = $result->fetch_assoc();
 <body>
   <div class="container">
     <div class="header">
-      <a href="homepage.html" class="back-button">&#8592; Back</a>
+      <a href="homepage.php" class="back-button">&#8592; Back</a>
       <h1>My Profile</h1>
       <a href="#" class="my-bookings">MY BOOKINGS</a>
     </div>

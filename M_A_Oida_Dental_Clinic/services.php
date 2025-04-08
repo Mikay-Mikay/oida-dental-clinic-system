@@ -25,7 +25,9 @@
    onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
     <i class='fa-solid fa-user' style='font-size: 24px;'></i>
 </a></div>
-                <button class="book-now">Book Now</button>
+<a href="bookings.php">
+                    <button class="book-now">Book Now</button>
+                </a>
             </div>
         </nav>
     </header>

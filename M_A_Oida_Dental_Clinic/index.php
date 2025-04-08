@@ -1,7 +1,4 @@
-<?php
-session_start();
-session_destroy();
-?>
+<?php require_once('session.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,11 +15,6 @@ session_destroy();
     </script>
 </head>
 <body>
-
-<?php
-session_start();
-?>
-
     <header>
         <nav class="navbar">
             <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
@@ -35,10 +27,16 @@ session_start();
                 <li><a href="contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-right">
-                <div class="user-icon" onclick="redirectToProfile()">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <button class="book-now">Book Now</button>
+            <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
+   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
+    <div class="user-icon">
+        <i class="fa-solid fa-user"></i>
+    </div>
+</a>
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
+   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
+    <button class="book-now">Book Now</button>
+</a>
             </div>
         </nav>
     </header>

@@ -1,40 +1,34 @@
 <?php
-require 'db.php'; // Database connection
-
-header("Content-Type: application/json"); // Set response type
-
-// Handle form submission (POST request from JavaScript)
+require_once('session.php'); // Centralized session check
+require 'db.php';
+// Updated POST handler (inside PHP block)
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Decode JSON input
+    header("Content-Type: application/json");
+    
     $data = json_decode(file_get_contents("php://input"), true);
-
+    
     if (isset($data["name"], $data["rating"], $data["text"])) {
-        $name = $conn->real_escape_string($data["name"]);
-        $rating = (int) $data["rating"];
-        $text = $conn->real_escape_string($data["text"]);
-        $date = date("Y-m-d H:i:s");
-
-        // SQL query to insert review
-        $query = "INSERT INTO reviews (name, rating, text, date) VALUES ('$name', '$rating', '$text', '$date')";
-
-        if ($conn->query($query)) {
+        $stmt = $conn->prepare("INSERT INTO reviews (name, rating, text, date) VALUES (?, ?, ?, NOW())");
+        $stmt->bind_param("sis", $data["name"], $data["rating"], $data["text"]);
+        
+        if ($stmt->execute()) {
             echo json_encode(["success" => true, "message" => "Review submitted successfully!"]);
         } else {
-            http_response_code(500); // Internal Server Error
+            http_response_code(500);
             echo json_encode(["success" => false, "message" => "Error submitting review."]);
         }
+        $stmt->close();
     } else {
-        http_response_code(400); // Bad Request
+        http_response_code(400);
         echo json_encode(["success" => false, "message" => "Invalid input data."]);
     }
     exit;
 }
-
-// Fetch reviews from database (GET request)
-if ($_SERVER["REQUEST_METHOD"] === "GET") {
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['api'])) {
+    header("Content-Type: application/json");
     $reviews = [];
     $result = $conn->query("SELECT * FROM reviews ORDER BY date DESC");
-
+    
     if ($result) {
         while ($row = $result->fetch_assoc()) {
             $reviews[] = [
@@ -46,15 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         }
         echo json_encode($reviews);
     } else {
-        http_response_code(500); // Internal Server Error
+        http_response_code(500);
         echo json_encode(["success" => false, "message" => "Error fetching reviews."]);
     }
     exit;
 }
-
-// Default response for unsupported methods
-http_response_code(405); // Method Not Allowed
-echo json_encode(["success" => false, "message" => "Method not allowed."]);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +52,7 @@ echo json_encode(["success" => false, "message" => "Method not allowed."]);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - M&A Oida Dental Clinic</title>
+    <title>Patient Reviews - M&A Oida Dental Clinic</title>
     <link rel="stylesheet" href="assets/css/reviews.css">
     <script src="assets/js/reviews.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -80,65 +70,72 @@ echo json_encode(["success" => false, "message" => "Method not allowed."]);
                 <li><a href="contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-right">
-                <button class="book-now">Book Now</button>
-                <div class="user-icon"><?php session_start(); ?>
-<a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
-   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
-    <i class='fa-solid fa-user' style='font-size: 24px;'></i>
-</a></div>
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
+                   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
+                    <div class="user-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </a>
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
+                   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
+                    <button class="book-now">Book Now</button>
+                </a>
             </div>
         </nav>
     </header>
+
     
     <section class="reviews-section">
-        <h2>Reviews</h2>
+        <h1>Patient Reviews</h1>
         
         <div class="reviews-container-wrapper">
             <button id="toggleFilterBtn" class="toggle-filter-btn">
-                <i class="fa-solid fa-filter"></i>
+                <i class="fa-solid fa-filter"></i> Filters
             </button>
 
             <aside class="filter-sidebar">
                 <h3>Sort By Time:</h3>
-                <label><input type="radio" name="time" value="past-few-days"> Past Few Days</label>
-                <label><input type="radio" name="time" value="past-few-weeks"> Past Few Weeks</label>
-                <label><input type="radio" name="time" value="past-few-months"> Past Few Months</label>
-                <label><input type="radio" name="time" value="past-few-years"> Past Few Years</label>
-                <label><input type="radio" name="time" value="all-time"> All Time</label>
+                <div class="filter-group">
+                    <label><input type="radio" name="time" value="past-few-days"> Past Few Days</label>
+                    <label><input type="radio" name="time" value="past-few-weeks"> Past Few Weeks</label>
+                    <label><input type="radio" name="time" value="past-few-months"> Past Few Months</label>
+                    <label><input type="radio" name="time" value="past-few-years"> Past Few Years</label>
+                    <label><input type="radio" name="time" value="all-time" checked> All Time</label>
+                </div>
                 
                 <h3>Sort By Ratings:</h3>
-                <label><input type="radio" name="rating" value="5"> &#9733;&#9733;&#9733;&#9733;&#9733; 5 Star</label>
-                <label><input type="radio" name="rating" value="4"> &#9733;&#9733;&#9733;&#9733;&#9734; 4 Star</label>
-                <label><input type="radio" name="rating" value="3"> &#9733;&#9733;&#9733;&#9734;&#9734; 3 Star</label>
-                <label><input type="radio" name="rating" value="2"> &#9733;&#9733;&#9734;&#9734;&#9734; 2 Star</label>
-                <label><input type="radio" name="rating" value="1"> &#9733;&#9734;&#9734;&#9734;&#9734; 1 Star</label>
+                <div class="filter-group">
+                    <label><input type="radio" name="rating" value="5"> ★★★★★ 5 Star</label>
+                    <label><input type="radio" name="rating" value="4"> ★★★★☆ 4 Star</label>
+                    <label><input type="radio" name="rating" value="3"> ★★★☆☆ 3 Star</label>
+                    <label><input type="radio" name="rating" value="2"> ★★☆☆☆ 2 Star</label>
+                    <label><input type="radio" name="rating" value="1"> ★☆☆☆☆ 1 Star</label>
+                </div>
                 
-                <button id="filterBtn">Filter</button>
+                <button id="filterBtn" class="apply-filters">Apply Filters</button>
             </aside>
 
             <div class="reviews-container" id="reviewsContainer">
-                <!-- Reviews will be loaded here -->
+                <!-- Dynamic content loaded via JavaScript -->
             </div>
         </div>
 
-        <button id="addReviewBtn">Add a Review</button>
+        <button id="addReviewBtn" class="cta-button">Share Your Experience</button>
     </section>
 
-    <!-- Add Review Modal -->
+    <!-- Review Modal -->
     <div id="reviewModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Add a Review</h2>
-            <input type="text" id="reviewerName" placeholder="Your Name">
+            <h2>Share Your Experience</h2>
+            <input type="text" id="reviewerName" placeholder="Your Full Name" required>
             <div class="star-rating">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
+                <?php for ($i = 1; $i <= 5; $i++): ?>
+                    <span class="star" data-value="<?= $i ?>">★</span>
+                <?php endfor; ?>
             </div>
-            <textarea id="reviewText" placeholder="Write your review..."></textarea>
-            <button id="submitReview">Submit</button>
+            <textarea id="reviewText" placeholder="Tell us about your experience..." required></textarea>
+            <button id="submitReview" class="cta-button">Submit Review</button>
         </div>
     </div>
 </body>

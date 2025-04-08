@@ -71,8 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 } else {
-    // For testing purposes, you can display the HTML login form on GET requests.
-    // Remove this block if you want to use only index.php for the login page.
+    
     ?>
     <!DOCTYPE html>
     <html lang="en">

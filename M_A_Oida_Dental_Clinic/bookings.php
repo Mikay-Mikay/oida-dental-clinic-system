@@ -1,8 +1,4 @@
-<?php
-// You can include session_start() and database connection here when needed
-// session_start();
-// include 'config.php';
-?>
+<?php require_once('session.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
