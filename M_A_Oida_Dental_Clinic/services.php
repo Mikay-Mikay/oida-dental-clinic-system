@@ -20,17 +20,20 @@
                 <li><a href="contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-right">
-                <div class="user-icon"><?php session_start(); ?>
-<a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
-   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
-    <i class='fa-solid fa-user' style='font-size: 24px;'></i>
-</a></div>
-<a href="bookings.php">
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
+                   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
+                    <div class="user-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </a>
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
+                   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
                     <button class="book-now">Book Now</button>
                 </a>
             </div>
         </nav>
     </header>
+
 
     <main>
         <section class="services-section">

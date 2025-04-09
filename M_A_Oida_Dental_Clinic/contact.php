@@ -21,17 +21,20 @@
                 <li><a href="contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-right">
-            <div class="user-icon">
                 <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
                    onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
-                    <i class='fa-solid fa-user' style='font-size: 24px;'></i>
+                    <div class="user-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
                 </a>
                 <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
-   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
-    <button class="book-now">Book Now</button>
-</a>
+                   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
+                    <button class="book-now">Book Now</button>
+                </a>
+            </div>
         </nav>
     </header>
+
 
     <div class="contact-container">
         <img src="clinic1.jpg" alt="Dental Chair" class="contact-image">

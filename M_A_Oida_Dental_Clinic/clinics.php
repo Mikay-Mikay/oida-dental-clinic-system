@@ -12,8 +12,7 @@
 <body>
     <header>
         <nav class="navbar">
-            <img src="assets/photos/logo.jpg" alt="Logo" class="logo">   
-            </button>
+            <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
             <ul class="nav-links">
                 <li><a href="homepage.php">Home</a></li>
                 <li><a href="clinics.php">Clinics</a></li>
@@ -23,19 +22,20 @@
                 <li><a href="contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-right">
-            <div class="user-icon">
                 <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
                    onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
-                    <i class='fa-solid fa-user' style='font-size: 24px;'></i>
+                    <div class="user-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
                 </a>
-            </div>
-            <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
-   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
-    <button class="book-now">Book Now</button>
-</a>
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
+                   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
+                    <button class="book-now">Book Now</button>
+                </a>
             </div>
         </nav>
     </header>
+
 
     <main>
         <section class="clinics-info">

@@ -1,4 +1,23 @@
-<?php require_once('session.php'); ?>
+<?php
+require_once('session.php'); // Include session management
+require_once('db.php');
+
+// Initialize $userData
+$userData = [];
+
+// Fetch user data if logged in
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("
+        SELECT first_name, last_name, email 
+        FROM patient_id 
+        WHERE id = ?
+    ");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $userData = $result->fetch_assoc() ?? []; // Fallback to empty array
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +45,10 @@
                 <div class="user-icon">
                     <i class="fa-solid fa-user"></i>
                 </div>
-                <button class="book-now">Book Now</button>
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
+   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
+    <button class="book-now">Book Now</button>
+</a>
             </div>
         </nav>
     </header>
@@ -49,19 +71,21 @@
 
                 <label>Full Name:</label>
                 <div class="input-with-icon">
-                    <input type="text" name="full_name" value="<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : ''; ?>" placeholder="(AUTOMATIC NAME)">
+                <input type="text" name="full_name" class="required" value="<?= htmlspecialchars($userData['first_name'].' '.$userData['last_name']) ?>" required>
+                <span class="error-message">You are required to input something on this text field</span>
                     <i class="fa-solid fa-pen-to-square"></i>
                 </div>
 
                 <label>Email Address:</label>
                 <div class="input-with-icon">
-                    <input type="email" name="email" value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''; ?>" placeholder="(AUTOMATIC EMAIL ADDRESS)">
+                <input type="email" name="email" name="email"  value="<?= htmlspecialchars($userData['email']) ?>"required>
+                <span class="error-message">You are required to input something on this text field</span>
                     <i class="fa-solid fa-pen-to-square"></i>
                 </div>
 
                 <label>Contact Number:</label>
                 <div class="input-with-icon">
-                    <input type="text" name="contact" value="<?php echo isset($_SESSION['user_contact']) ? $_SESSION['user_contact'] : ''; ?>" placeholder="(AUTOMATIC CONTACT NUMBER)">
+                <input type= ?>
                     <i class="fa-solid fa-pen-to-square"></i>
                 </div>
 
@@ -153,9 +177,14 @@
                     </div>
 
                     <div class="form-group calendar-group">
-                        <label for="calendar">Calendar View:</label>
-                        <div id="calendar" class="calendar-grid"></div>
-                    </div>
+    <label for="calendar">Calendar View:</label>
+    <div class="calendar-nav">
+        <button class="prev-month">&lt;</button>
+        <div class="month-year"></div>
+        <button class="next-month">&gt;</button>
+    </div>
+    <div id="calendar" class="calendar-grid"></div>
+</div>
 
                     <div class="info-note">
                         <i class="fa-solid fa-circle-info"></i>

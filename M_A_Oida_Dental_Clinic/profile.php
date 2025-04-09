@@ -26,99 +26,96 @@ $user = $result->fetch_assoc();
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Profile</title>
-  <link rel="stylesheet" href="assets/css/profile.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="assets/css/profiles.css">
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <a href="homepage.php" class="back-button">&#8592; Back</a>
-      <h1>My Profile</h1>
-      <a href="#" class="my-bookings">MY BOOKINGS</a>
+    <div class="profile-container">
+        <div class="header">
+          <a href="homepage.php" class="back-btn">Back</a>
+            <h1 class="profile-title">My Profile</h1>
+            <div class="bookings-btn">
+                <button>MY BOOKINGS</button>
+                <p class="booking-note">"Check your bookings here!"</p>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-pic-section">
+                <div class="profile-pic-container">
+                    <img src="profile-placeholder.jpg" alt="Profile Picture" class="profile-pic">
+                </div>
+                <div class="profile-name-header">
+                    <h2>VICTORIA ANNE GARCIA</h2>
+                    <button class="edit-profile-btn">Edit Profile</button>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-column">
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" value="Victoria Anne" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="middleName">Middle Name:</label>
+                        <input type="text" id="middleName" value="N/A" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" value="Garcia" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" value="vicanne26@gmail.com" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" value="09278680398" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="text" id="dob" value="06-11-97" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <input type="text" id="gender" value="Female" readonly>
+                    </div>
+                </div>
+                <div class="info-column">
+                    <div class="form-group">
+                        <label for="region">Region:</label>
+                        <input type="text" id="region" value="NCR" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="province">Province:</label>
+                        <input type="text" id="province" value="Metro Manila" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City/Municipality:</label>
+                        <input type="text" id="city" value="Caloocan City" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="barangay">Barangay:</label>
+                        <input type="text" id="barangay" value="Barangay 177" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">ZipCode:</label>
+                        <input type="text" id="zipCode" value="1400" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="edit-password-btn">Edit Password</button>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </div>
     </div>
-
-    <div class="profile-picture">
-    <img src="uploads/<?php echo htmlspecialchars($profile_img); ?>" alt="Profile Picture">
-
-      <form action="upload_profile.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="profile_img" required>
-        <button type="submit">Change Profile Picture</button>
-      </form>
-    </div>
-
-    <form action="update_profile.php" method="POST" class="profile-info">
-      <div class="info-group">
-        <span class="label">First Name:</span>
-        <input type="text" name="first_name" value="<?php echo htmlspecialchars($profile['first_name'] ?? ''); ?>" required>
-      </div>
-
-      <div class="info-group">
-        <span class="label">Middle Name:</span>
-        <input type="text" name="middle_name" value="<?php echo htmlspecialchars($profile['middle_name'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">Last Name:</span>
-        <input type="text" name="last_name" value="<?php echo htmlspecialchars($profile['last_name'] ?? ''); ?>" required>
-      </div>
-
-      <div class="info-group">
-        <span class="label">Region:</span>
-        <input type="text" name="region" value="<?php echo htmlspecialchars($profile['region'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">Province:</span>
-        <input type="text" name="province" value="<?php echo htmlspecialchars($profile['province'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">City:</span>
-        <input type="text" name="city" value="<?php echo htmlspecialchars($profile['city'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">Barangay:</span>
-        <input type="text" name="barangay" value="<?php echo htmlspecialchars($profile['barangay'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">Zip Code:</span>
-        <input type="text" name="zipcode" value="<?php echo htmlspecialchars($profile['zipcode'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">Phone Number:</span>
-        <input type="text" name="phone_number" value="<?php echo htmlspecialchars($profile['phone_number'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">Date of Birth:</span>
-        <input type="date" name="birth_date" value="<?php echo htmlspecialchars($profile['birth_date'] ?? ''); ?>">
-      </div>
-
-      <div class="info-group">
-        <span class="label">Gender:</span>
-        <select name="gender">
-    <option value="">Select</option>
-    <option value="Male" <?php echo isset($profile['gender']) && $profile['gender'] == 'Male' ? 'selected' : ''; ?>>Male</option>
-    <option value="Female" <?php echo isset($profile['gender']) && $profile['gender'] == 'Female' ? 'selected' : ''; ?>>Female</option>
-</select>
-
-      </div>
-
-      <div class="info-group">
-        <span class="label">Email:</span>
-        <input type="email" name="email" value="<?php echo htmlspecialchars($profile['email'] ?? ''); ?>" required>
-      </div>
-
-      <button type="submit">Save Changes</button>
-    </form>
-  </div>
 </body>
 </html>

@@ -1,108 +1,130 @@
+// appoinment_schedule.js
 document.addEventListener('DOMContentLoaded', () => {
     const calendarContainer = document.getElementById('calendar');
-    const selectedSchedule = document.getElementById('selected-schedule');
     const dateInput = document.getElementById('appointment-date');
-    let selectedDate = null;
-    let selectedTime = null;
-
-    const now = new Date();
-    let currentMonth = now.getMonth();
-    let currentYear = now.getFullYear();
+    const clinicSelect = document.getElementById('clinic');
+    const monthYearElement = document.querySelector('.month-year');
+    let currentDate = new Date();
+    
+    // Weekday headers
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     function generateCalendar(month, year) {
         calendarContainer.innerHTML = '';
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const today = new Date();
+        
+        // Add weekday headers
+        weekdays.forEach(day => {
+            const header = document.createElement('div');
+            header.className = 'calendar-header';
+            header.textContent = day;
+            calendarContainer.appendChild(header);
+        });
 
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const daysInMonth = lastDay.getDate();
+        
+        // Add empty days for calendar alignment
+        for (let i = 0; i < firstDay.getDay(); i++) {
+            calendarContainer.appendChild(createEmptyDay());
+        }
+
+        // Generate days
         for (let day = 1; day <= daysInMonth; day++) {
-            const dateObj = new Date(year, month, day);
             const dayElement = document.createElement('div');
-            dayElement.classList.add('calendar-day');
-            dayElement.innerText = day;
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = day;
 
-            if (dateObj < today.setHours(0, 0, 0, 0)) {
+            const dateObj = new Date(year, month, day);
+            const today = new Date();
+            
+            // Normalize dates to midnight for accurate comparison
+            dateObj.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+            
+            // Disable if date is today or in the past
+            const isPastOrToday = dateObj <= today;
+
+            if (isPastOrToday) {
                 dayElement.classList.add('disabled');
+            } else {
+                dayElement.addEventListener('click', () => handleDateSelect(dayElement, year, month, day));
             }
 
-            // Highlight if this is the selected date
-            if (
-                selectedDate &&
-                new Date(selectedDate).getFullYear() === year &&
-                new Date(selectedDate).getMonth() === month &&
-                new Date(selectedDate).getDate() === day
-            ) {
+            if (dateInput.value === dateObj.toISOString().slice(0,10)) {
                 dayElement.classList.add('selected');
             }
-
-            dayElement.addEventListener('click', () => {
-                if (dayElement.classList.contains('disabled')) return;
-
-                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
-                dayElement.classList.add('selected');
-
-                const formatted = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-                selectedDate = formatted;
-                dateInput.value = formatted; // Sync with hidden input
-                updateSelectedDisplay();
-            });
 
             calendarContainer.appendChild(dayElement);
         }
+
+        // Update month/year display
+        monthYearElement.textContent = 
+            new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
     }
 
-    function updateSelectedDisplay() {
-        if (selectedDate && selectedTime) {
-            selectedSchedule.textContent = `${selectedDate} at ${selectedTime}`;
-        } else if (selectedDate) {
-            selectedSchedule.textContent = `${selectedDate}`;
-        } else if (selectedTime) {
-            selectedSchedule.textContent = `${selectedTime}`;
-        } else {
-            selectedSchedule.textContent = 'None';
+    function createEmptyDay() {
+        const emptyDay = document.createElement('div');
+        emptyDay.className = 'calendar-day empty';
+        return emptyDay;
+    }
+
+    function handleDateSelect(dayElement, year, month, day) {
+        document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+        dayElement.classList.add('selected');
+        
+        const selectedDate = `${year}-${(month+1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
+        dateInput.value = selectedDate;
+        
+        if (clinicSelect.value) {
+            updateTimeSlots(selectedDate, clinicSelect.value);
         }
     }
 
-    // Time slot selection
-    document.querySelectorAll('.time-slot').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.time-slot').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            selectedTime = btn.textContent;
-            updateSelectedDisplay();
-        });
+    // Calendar navigation
+    document.querySelector('.calendar-nav').addEventListener('click', (e) => {
+        if (e.target.classList.contains('prev-month')) {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+        } else if (e.target.classList.contains('next-month')) {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+        generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
     });
 
-    // Handle manual date input (input[type="date"])
+    // Initialize calendar with current month
+    generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+
+    // Sync calendar with date input changes
     dateInput.addEventListener('change', () => {
         const newDate = new Date(dateInput.value);
         if (!isNaN(newDate)) {
-            selectedDate = dateInput.value;
-
-            const newMonth = newDate.getMonth();
-            const newYear = newDate.getFullYear();
-
-            // Update calendar view if month or year changed
-            if (newMonth !== currentMonth || newYear !== currentYear) {
-                currentMonth = newMonth;
-                currentYear = newYear;
-                generateCalendar(currentMonth, currentYear);
-            }
-
-            // Highlight the correct day after regenerating
-            const calendarDays = calendarContainer.querySelectorAll('.calendar-day');
-            calendarDays.forEach((dayElement, index) => {
-                const dayNumber = parseInt(dayElement.textContent);
-                if (dayNumber === newDate.getDate()) {
-                    dayElement.classList.add('selected');
-                } else {
-                    dayElement.classList.remove('selected');
-                }
-            });
-
-            updateSelectedDisplay();
+            currentDate = newDate;
+            generateCalendar(currentDate.getMonth(), currentDate.getFullYear());
         }
     });
 
-    // Initial calendar load
-    generateCalendar(currentMonth, currentYear);
+    // Time slot update function (connected with bookings.js)
+    function updateTimeSlots(selectedDate, clinicBranch) {
+        if (!selectedDate || !clinicBranch) return;
+
+        fetch(`fetch_booked_times.php?date=${selectedDate}&branch=${clinicBranch}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
+            .then(bookedSlots => {
+                document.querySelectorAll('.time-slot').forEach(btn => {
+                    const slotTime = btn.textContent.trim();
+                    const isBooked = bookedSlots.includes(slotTime);
+                    
+                    btn.disabled = isBooked;
+                    btn.classList.toggle("booked", isBooked);
+                    btn.classList.remove("selected");
+                });
+            })
+            .catch(err => {
+                console.error("Error fetching booked slots:", err);
+                alert("Error checking availability. Please try again.");
+            });
+    }
 });

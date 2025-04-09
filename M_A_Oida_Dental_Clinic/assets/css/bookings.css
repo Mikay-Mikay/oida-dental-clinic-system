@@ -361,41 +361,111 @@ label {
 /* ==================
    CUSTOM CALENDAR BOX
    ================== */
-#calendar {
-    margin-top: 10px;
+/* Calendar Navigation */
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f0f8ff;
+    border-radius: 8px;
+}
+
+.calendar-nav button {
+    background: none;
+    border: 1px solid #0d6efd;
+    color: #0d6efd;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calendar-nav button:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.month-year {
+    font-weight: 600;
+    color: #1d2d5d;
+    font-size: 1.1em;
+}
+
+/* Calendar Grid */
+.calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
-    max-width: 420px;
-    margin-bottom: 20px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.calendar-header {
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    background: #0d6efd;
+    color: white;
+    border-radius: 5px;
 }
 
 .calendar-day {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin: 4px;
-    line-height: 40px;
+    padding: 10px;
     text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     cursor: pointer;
-    background-color: white;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.calendar-day:hover {
-    background-color: #f0f8ff;
+.calendar-day:hover:not(.disabled) {
+    background: #e6f0ff;
+    transform: translateY(-2px);
 }
 
 .calendar-day.selected {
-    background-color: #0d6efd;
+    background: #0d6efd;
     color: white;
-    font-weight: bold;
+    border-color: #0b5ed7;
 }
 
 .calendar-day.disabled {
-    color: #aaa;
-    background-color: #f0f0f0;
+    background: #f8f9fa;
+    color: #ccc;
     cursor: not-allowed;
 }
+
+/* Error Styles */
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .error-message {
+    color: var(--danger-red);
+    font-size: 0.875rem;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .input-group.invalid .error-message {
+    opacity: 1;
+  }
+  
+  .input-group.invalid input {
+    border-color: var(--danger-red);
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
