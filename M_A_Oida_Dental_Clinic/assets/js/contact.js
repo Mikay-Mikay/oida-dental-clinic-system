@@ -1,3 +1,20 @@
+//Notifcation nav
+document.addEventListener("DOMContentLoaded", function () {
+    const bellToggle = document.querySelector(".notification-toggle");
+    const wrapper = document.querySelector(".notification-wrapper");
+
+    bellToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        wrapper.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!wrapper.contains(e.target)) {
+            wrapper.classList.remove("show");
+        }
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     // Highlight active navigation link
     const currentPage = window.location.pathname.split("/").pop();
@@ -42,3 +59,5 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.style.opacity = "1";
     }, 300);
 });
+
+

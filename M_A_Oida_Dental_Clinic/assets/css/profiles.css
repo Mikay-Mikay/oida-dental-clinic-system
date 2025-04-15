@@ -125,7 +125,8 @@ body {
   margin-bottom: 5px;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -157,5 +158,94 @@ body {
   border-radius: 5px;
   padding: 8px 15px;
   font-weight: bold;
+  cursor: pointer;
+}
+
+input:not([readonly]) {
+  background-color: #fff9e6 !important;
+  border: 1px solid #8055aa !important;
+}
+
+.cancel-btn {
+  background-color: #ff0000;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.validation-note {
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
+.date-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.date-input-container input {
+  flex-grow: 1;
+}
+
+.date-icon {
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+/* Add these styles */
+.styled-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #8055aa;
+  border-radius: 3px;
+  background-color: #fff9e6;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: '▼';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #8055aa;
+}
+
+/* Existing date picker adjustments */
+.date-icon {
   cursor: pointer;
 }

@@ -1,62 +1,255 @@
 <?php
-session_start();
-include 'db.php';
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+require_once('session.php');
+require 'db.php';
 
 $user_id = $_SESSION['user_id'];
 
-$first_name = $_POST['first_name'];
-$middle_name = $_POST['middle_name'];
-$last_name = $_POST['last_name'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
-$dob = $_POST['dob'];
-$gender = $_POST['gender'];
-$region = $_POST['region'];
-$province = $_POST['province'];
-$city = $_POST['city'];
-$barangay = $_POST['barangay'];
-$zipcode = $_POST['zipcode'];
+// Fetch existing user data
+$sql = "
+    SELECT 
+        first_name, middle_name, last_name, email,
+        phone_number, date_of_birth, gender, 
+        region, province, city, barangay, zip_code,
+        profile_picture
+    FROM patients  
+    WHERE id = ?
+";
 
-$profile_picture = '';
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 
-if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['name']) {
-    $target_dir = "uploads/";
-    $file_name = basename($_FILES["profile_picture"]["name"]);
-    $target_file = $target_dir . time() . "_" . $file_name;
+// Region and Province Data
+$regions = [
+    'NCR' => 'National Capital Region (NCR)',
+    'Region III (Central Luzon)' => 'Region III (Central Luzon)',
+    'Region IV-A (Calabarzon)' => 'Region IV-A (Calabarzon)'
+];
 
-    if (move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file)) {
-        $profile_picture = $target_file;
-        $update_picture = ", profile_picture = '$profile_picture'";
-    } else {
-        $update_picture = "";
+$provinces = [
+    'NCR' => ['Metro Manila'],
+    'Region III (Central Luzon)' => ['Pampanga', 'Bulacan', 'Nueva Ecija'],
+    'Region IV-A (Calabarzon)' => ['Cavite', 'Laguna', 'Batangas']
+];
+
+// Handle form submission
+$error = '';
+$profile_picture = $user['profile_picture'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Handle profile picture upload
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = 'uploads/profiles/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        $filename = $_FILES['profile_picture']['name'];
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $newFilename = 'profile_' . $user_id . '_' . time() . '.' . $extension;
+        $destination = $uploadDir . $newFilename;
+
+        if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $destination)) {
+            $profile_picture = $newFilename;
+        } else {
+            $error = "Failed to upload profile picture.";
+        }
     }
-} else {
-    $update_picture = "";
+
+    // Date handling
+    try {
+        $date_of_birth = DateTime::createFromFormat('d-m-Y', $_POST['date_of_birth']);
+        $mysql_date = $date_of_birth->format('Y-m-d');
+    } catch (Exception $e) {
+        $error = "Invalid date format. Use DD-MM-YYYY";
+    }
+
+    if (!$error) {
+        $update_sql = "UPDATE patients SET 
+            first_name = ?, middle_name = ?, last_name = ?,
+            email = ?, phone_number = ?, date_of_birth = ?,
+            gender = ?, region = ?, province = ?, city = ?,
+            barangay = ?, zip_code = ?, profile_picture = ?
+            WHERE id = ?";
+
+        $stmt = $conn->prepare($update_sql);
+        $stmt->bind_param("sssssssssssssi",
+            $_POST['first_name'],
+            $_POST['middle_name'],
+            $_POST['last_name'],
+            $_POST['email'],
+            $_POST['phone_number'],
+            $mysql_date,
+            $_POST['gender'],
+            $_POST['region'],
+            $_POST['province'],
+            $_POST['city'],
+            $_POST['barangay'],
+            $_POST['zip_code'],
+            $profile_picture,
+            $user_id
+        );
+
+        if ($stmt->execute()) {
+            header("Location: profile.php");
+            exit();
+        } else {
+            $error = "Update failed: " . $conn->error;
+        }
+    }
 }
 
-$query = "UPDATE users SET
-    first_name = '$first_name',
-    middle_name = '$middle_name',
-    last_name = '$last_name',
-    email = '$email',
-    phone = '$phone',
-    dob = '$dob',
-    gender = '$gender',
-    region = '$region',
-    province = '$province',
-    city = '$city',
-    barangay = '$barangay',
-    zipcode = '$zipcode'
-    $update_picture
-    WHERE id = $user_id";
-
-mysqli_query($conn, $query);
-
-header("Location: profile.php");
-exit();
+$formatted_dob = date('d-m-Y', strtotime($user['date_of_birth']));
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="assets/css/profiles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <div class="profile-container">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="header">
+                <a href="profile.php" class="back-btn">Back</a>
+                <h1 class="profile-title">Edit Profile</h1>
+            </div>
+
+            <?php if ($error): ?>
+                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
+
+            <div class="profile-content">
+                <div class="profile-pic-section">
+                    <div class="profile-pic-container">
+                        <img src="uploads/profiles/<?php echo htmlspecialchars($user['profile_picture']); ?>" 
+                            alt="Profile Picture" class="profile-pic">
+                    </div>
+                    <div class="form-group">
+                        <label>Update Profile Picture:</label>
+                        <input type="file" name="profile_picture" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-column">
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" id="firstName" name="first_name" 
+                                value="<?php echo htmlspecialchars($user['first_name']); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="middleName">Middle Name:</label>
+                            <input type="text" id="middleName" name="middle_name" 
+                                value="<?php echo htmlspecialchars($user['middle_name'] ?? ''); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" id="lastName" name="last_name" 
+                                value="<?php echo htmlspecialchars($user['last_name']); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address:</label>
+                            <input type="email" id="email" name="email" 
+                                value="<?php echo htmlspecialchars($user['email']); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number:</label>
+                            <input type="text" id="phone" name="phone_number" 
+                                value="<?php echo htmlspecialchars($user['phone_number']); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth:</label>
+                            <div class="date-input-container">
+                                <input type="text" id="dob" name="date_of_birth" 
+                                    value="<?php echo htmlspecialchars($formatted_dob); ?>">
+                                <span class="date-icon">📅</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" class="styled-select">
+                                <option value="Male" <?= $user['gender'] === 'Male' ? 'selected' : '' ?>>Male</option>
+                                <option value="Female" <?= $user['gender'] === 'Female' ? 'selected' : '' ?>>Female</option>
+                                <option value="Other" <?= $user['gender'] === 'Other' ? 'selected' : '' ?>>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="info-column">
+                        <div class="form-group">
+                            <label for="region">Region:</label>
+                            <select id="region" name="region" class="styled-select">
+                                <?php foreach ($regions as $value => $label): ?>
+                                    <option value="<?= $value ?>" <?= $user['region'] === $value ? 'selected' : '' ?>>
+                                        <?= $label ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="province">Province:</label>
+                            <select id="province" name="province" class="styled-select">
+                                <?php foreach ($provinces[$user['region']] as $province): ?>
+                                    <option value="<?= $province ?>" <?= $user['province'] === $province ? 'selected' : '' ?>>
+                                        <?= $province ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City/Municipality:</label>
+                            <input type="text" id="city" name="city" 
+                                value="<?php echo htmlspecialchars($user['city']); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="barangay">Barangay:</label>
+                            <input type="text" id="barangay" name="barangay" 
+                                value="<?php echo htmlspecialchars($user['barangay']); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZipCode:</label>
+                            <input type="text" id="zipCode" name="zip_code" 
+                                value="<?php echo htmlspecialchars($user['zip_code']); ?>">
+                        </div>
+                    </div>
+                </div>
+
+                <p class="validation-note">*Always double check your new information before saving*</p>
+
+                <div class="action-buttons">
+                    <a href="profile.php" class="cancel-btn">Cancel</a>
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Date picker initialization
+        flatpickr("#dob", {
+            dateFormat: "d-m-Y",
+            allowInput: true
+        });
+
+        // Region-Province dynamic update
+        document.getElementById('region').addEventListener('change', function() {
+            const provinces = <?= json_encode($provinces) ?>;
+            const provinceSelect = document.getElementById('province');
+            provinceSelect.innerHTML = '';
+            
+            provinces[this.value].forEach(province => {
+                const option = document.createElement('option');
+                option.value = province;
+                option.textContent = province;
+                provinceSelect.appendChild(option);
+            });
+        });
+    </script>
+</body>
+</html>

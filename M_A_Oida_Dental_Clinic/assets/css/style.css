@@ -79,3 +79,22 @@ button:hover {
     max-width: 150px;
 }
 
+.back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: #2c3e50;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.back-arrow:hover {
+    color: #3498db;
+}
+
+.fa-arrow-left {
+    font-size: 1.5em;
+    vertical-align: middle;
+}

@@ -1,83 +1,83 @@
 <?php
+// Strict error handling for development
+declare(strict_types=1);
+error_reporting(0); // Disable in production
+ini_set('display_errors', '0');
+
+// Clean output buffer before starting
+while (ob_get_level() > 0) ob_end_clean();
+
 session_start();
-ob_start();
 require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Ensure clean JSON output
     header('Content-Type: application/json');
     
-    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-    $password = $_POST['password'];
+    try {
+        $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+        $password = $_POST['password'] ?? '';
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        ob_end_clean(); // Clean buffer
-        echo json_encode(["status" => "error", "message" => "Invalid email."]);
-        exit();
-    }
-
-    // Fixed table name
-    $query = "SELECT id, password_hash FROM patients WHERE email = ?";
-    $stmt = $conn->prepare($query);
-
-    if (!$stmt) {
-        ob_end_clean(); // Clean buffer
-        echo json_encode(["status" => "error", "message" => "DB error: " . $conn->error]);
-        exit();
-    }
-
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Check if a user exists with the provided email
-    if ($result && $result->num_rows === 1) {
-        $user = $result->fetch_assoc();
-
-        if (password_verify($password, $user['password_hash'])) {
-            $_SESSION['user_id'] = $user['id'];
-            
-            // Close statement and connection before sending the response
-            $stmt->close();
-            $conn->close();
-            ob_end_clean(); // Clear any previous output
-
-            echo json_encode([
-                "status" => "success"
-            ]);
-            exit();
-        } else {
-            $stmt->close();
-            $conn->close();
-
-            echo json_encode([
-                "status" => "error",
-                "message" => "Incorrect password."
-            ]);
-            exit();
+        // Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Invalid email format");
         }
-    } else {
-        $stmt->close();
-        $conn->close();
+
+        // Database query
+        $stmt = $conn->prepare("SELECT id, password_hash FROM patients WHERE email = ?");
+        if (!$stmt) throw new Exception("Database error: " . $conn->error);
+
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows !== 1) {
+            throw new Exception("Email not found");
+        }
+
+        $user = $result->fetch_assoc();
+        if (!password_verify($password, $user['password_hash'])) {
+            throw new Exception("Incorrect password");
+        }
+
+        // Successful login
+        $_SESSION['user_id'] = $user['id'];
+        session_regenerate_id(true);
 
         echo json_encode([
+            "status" => "success",
+            "redirect" => "homepage.php"
+        ]);
+        exit();
+        
+    } catch (Exception $e) {
+        echo json_encode([
             "status" => "error",
-            "message" => "Email not found."
+            "message" => $e->getMessage()
         ]);
         exit();
     }
-} else {
-    
-    ?>
+}
+
+// Non-POST requests show login page
+?>
+
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
       <title>Login - M&A Oida Dental Clinic</title>
       <link rel="stylesheet" href="assets/css/style.css?v=2.1">
-      <script src="assets/js/script.js?v=1.1"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+      <script src="assets/js/script.js"></script>
+      
     </head>
     <body>
       <div class="login-container">
+        <!-- Back Arrow -->
+        <a href="homepage.php" class="back-arrow">
+            <i class="fas fa-arrow-left"></i>
+        </a>
           <div class="login-box">
               <h2>Login</h2>
               <form id="login-form" action="login.php" method="POST">
@@ -100,6 +100,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           </div>
     </body>
     </html>
-    <?php
-}
-?>
+

@@ -11,26 +11,24 @@ body {
     color: #333;
 }
 
-.user-icon {
-    font-size: 24px;
-    color: #003087;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.user-icon:hover {
-    color: #0d6efd;
-}
-
 /* Navigation Bar */
-
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 15px 20px;
     background-color: #a6c8ff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .nav-links {
@@ -42,126 +40,144 @@ body {
     margin: 0 15px;
 }
 
-.nav-links li a {
+.nav-links a {
     text-decoration: none;
     color: black;
     font-weight: 600;
-    transition: 0.3s;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease-in-out;
 }
 
-.nav-links li a:hover {
+.nav-links a:hover {
     color: #0d6efd;
 }
 
-/* Container for User Icon and Book Now */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 3px;
+    background-color: #0d6efd;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* User Icon & Book Now Button */
 .nav-right {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-/* User Icon */
+.nav-right {
+    gap: 10px; /* Reduce gap between elements */
+}
+
+
 .user-icon {
     font-size: 24px;
     color: #003087;
     cursor: pointer;
     padding: 10px;
+    z-index: 1000; 
+     /* Add new properties */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #003087;
+    transition: all 0.3s ease;
+}
+
+.user-icon img.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block !important;
+    max-width: 100%;
+    min-height: 40px;
+}
+
+.user-icon .fa-user {
+    font-size: 1.2rem;
 }
 
 .user-icon:hover {
-    color: #0d6efd;
+    border-color: #0d6efd;
+    transform: scale(1.05);
+    color: #0d6efd; /* Merge with existing hover */
 }
 
-/* Book Now Button */
 .book-now {
     background-color: #0d6efd;
     color: white;
     padding: 8px 16px;
     border-radius: 8px;
-    text-decoration: none;
     font-weight: 600;
     border: none;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 .book-now:hover {
     background-color: #0b5ed7;
 }
 
-
-/* Logo Styling */
-.logo-container {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    width: 80px; /* Adjust size as needed */
-    height: 80px; /* Ensure it's a square */
-    border-radius: 40%; /* Makes it circular */
-    object-fit: cover; /* Ensures the image fills the circle properly */
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
+.notification-wrapper {
     position: relative;
-    padding-bottom: 5px;
+}
+.notification-wrapper {
+    margin-left: 8px; /* Better alignment */
 }
 
-.nav-links li a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 3px;
-    background-color: #0d6efd; /* Change color if needed */
-    transition: width 0.3s ease-in-out;
+.notification-toggle {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s;
 }
 
-.nav-links li a:hover::after,
-.nav-links li a:focus::after {
-    width: 100%;
-}
-
-
-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-nav ul li a:hover {
+.notification-toggle:hover {
     color: #0d6efd;
 }
 
-.book-now {
-    background-color: #0d6efd;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 340px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
 }
 
-.book-now:hover {
-    background-color: #0b5ed7;
+.notification-wrapper.show .notification-dropdown {
+    display: block;
 }
 
+.notification-dropdown .empty-message {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-style: italic;
+}
 /* Contact Us Section */
 .contact-container {
     display: flex;

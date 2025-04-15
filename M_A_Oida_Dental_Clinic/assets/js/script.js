@@ -1,41 +1,39 @@
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelector("#login-form").addEventListener("submit", async function (e) {
-        e.preventDefault(); // Prevent default form submission
-
-        let formData = new FormData(this);
+    const loginForm = document.querySelector("#login-form");
+    
+    loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
 
         try {
-            let response = await fetch("login.php", {
+            const formData = new FormData(this);
+            const response = await fetch("login.php", {
                 method: "POST",
-                body: formData,
+                body: formData
             });
 
-            let text = await response.text(); // Get raw response first
-            console.log("Raw Response:", text); // Debugging
-
-            if (!text.trim()) {
-                console.error("Empty response from server.");
-                return;
+            // Handle empty responses
+            const text = await response.text();
+            if (!text) {
+                throw new Error("Empty response from server");
             }
 
-            let data;
-            try {
-                let data = JSON.parse(text);
-            } catch (jsonError) {
-                // Show server's raw response for debugging
-                alert(`Server response error:\n${text.substring(0, 100)}...`);
-                return;
-            }
-
-            console.log("Parsed JSON:", data); // Debugging
+            // Parse response once
+            const data = JSON.parse(text);
+            console.log("Server Response:", data);
 
             if (data.status === "success") {
-                window.location.href = "homepage.php"; // Redirect to homepage
-            } else if (data.message) {
-                alert(data.message); // Show error message only if there's an error
+                // Force full page reload to apply session
+                window.location.href = data.redirect || "homepage.php";
+            } else {
+                alert(data.message || "Login failed");
             }
         } catch (error) {
-            console.error("Fetch Error:", error);
+            console.error("Error:", error);
+            alert("Login error: " + error.message);
+        } finally {
+            submitBtn.disabled = false;
         }
     });
 });

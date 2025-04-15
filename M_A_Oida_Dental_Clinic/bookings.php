@@ -2,6 +2,19 @@
 require_once('session.php'); // Include session management
 require_once('db.php');
 
+// Move user data fetching to the top
+if(isset($_SESSION['user_id'])) {
+  $stmt = $conn->prepare("SELECT first_name, profile_picture FROM patients WHERE id = ?");
+  $stmt->bind_param("i", $_SESSION['user_id']);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $user = $result->fetch_assoc();
+  
+  // Add error handling
+  if(!$user) {
+      die("User not found in database");
+  }
+}
 // Kumuha ng user data kung naka-login
 $userData = [];
 if (isset($_SESSION['user_id'])) {
@@ -31,29 +44,48 @@ if (isset($_SESSION['user_id'])) {
 <body>
   <!-- HEADER / NAVBAR -->
   <header>
-    <nav class="navbar">
-      <div class="logo-container">
-        <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
-      </div>
-      <ul class="nav-links">
-        <li><a href="homepage.php">Home</a></li>
-        <li><a href="clinics.php">Clinics</a></li>
-        <li><a href="services.php">Services</a></li>
-        <li><a href="about.php">About</a></li>
-        <li><a href="reviews.php">Reviews</a></li>
-        <li><a href="contact.php">Contact Us</a></li>
-      </ul>
-      <div class="nav-right">
-        <div class="user-icon">
-          <i class="fa-solid fa-user"></i>
-        </div>
-        <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
-           onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
-          <button class="book-now">Book Now</button>
+        <nav class="navbar">
+            <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
+            <?php if(isset($_SESSION['user_id']) && isset($user)): ?>
+                <div class="welcome-message">Welcome, <?= htmlspecialchars($user['first_name']) ?></div>
+                <?php endif; ?>
+            <ul class="nav-links">
+                <li><a href="homepage.php">Home</a></li>
+                <li><a href="clinics.php">Clinics</a></li>
+                <li><a href="services.php">Services</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="reviews.php">Reviews</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'javascript:void(0);' ?>"
+                onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\'); window.location.href=\'login.php\';' ?>">
+                <div class="user-icon">
+                    <?php if(isset($user) && !empty($user['profile_picture'])): ?>
+                        <img src="uploads/profiles/<?php echo htmlspecialchars($user['profile_picture']); ?>?<?php echo time() ?>" 
+                        alt="Profile Picture" class="profile-pic">
+                    <?php else: ?>
+                        <i class="fa-solid fa-user"></i>
+                    <?php endif; ?>
+                </div>
+            </a>
+            <?php if(isset($_SESSION['user_id'])): ?><div class="notification-wrapper">
+                <div class="notification-toggle">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="notification-dropdown">
+                    <p class="empty-message">No notifications yet</p>
+                </div>
+    </div>
+    <?php endif; ?>
+
+            <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'javascript:void(0);' ?>"
+            onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\'); window.location.href=\'login.php\';' ?>">
+            <button class="book-now">Book Now</button>
         </a>
-      </div>
-    </nav>
-  </header>
+    </div>
+        </nav>
+    </header>
 
   <!-- FORM CONTAINER -->
   <main class="appointment-container">

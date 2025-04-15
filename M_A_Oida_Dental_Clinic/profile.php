@@ -1,28 +1,35 @@
 <?php
-require_once('session.php'); // Centralized session check
+require_once('session.php');
 require 'db.php';
 
-$user_id = $_SESSION['user_id']; // Now guaranteed by session.php
+$user_id = $_SESSION['user_id'];
 
 $sql = "
     SELECT 
         first_name, middle_name, last_name, email,
-        profile_picture, phone_number, birth_date, gender, 
-        region, province, city, barangay, zipcode
-    FROM patient_profiles  
-    WHERE patient_id = ?
+        phone_number, date_of_birth, gender, 
+        region, province, city, barangay, zip_code,
+        profile_picture
+    FROM patients  
+    WHERE id = ?
 ";
-
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
-    die("SQL Error: " . $conn->error); // Debugging output
+    die("SQL Error: " . $conn->error);
 }
 
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
+
+if (!$user) {
+    die("User not found.");
+}
+
+// Format date of birth to DD-MM-YYYY
+$formatted_dob = date('d-m-Y', strtotime($user['date_of_birth']));
 ?>
 
 
@@ -46,74 +53,77 @@ $user = $result->fetch_assoc();
         </div>
 
         <div class="profile-content">
-            <div class="profile-pic-section">
-                <div class="profile-pic-container">
-                    <img src="profile-placeholder.jpg" alt="Profile Picture" class="profile-pic">
-                </div>
-                <div class="profile-name-header">
-                    <h2>VICTORIA ANNE GARCIA</h2>
-                    <button class="edit-profile-btn">Edit Profile</button>
-                </div>
+        <div class="profile-pic-section">
+            <div class="profile-pic-container">
+                <img src="uploads/profiles/<?php echo htmlspecialchars($user['profile_picture']); ?>" 
+                alt="Profile Picture" class="profile-pic">
             </div>
+            <div class="profile-name-header">
+                <h2><?php echo htmlspecialchars($user['first_name'] . ' ' . ($user['middle_name'] ?? '') . ' ' . $user['last_name']); ?></h2>
+                <a href="edit_profile.php" class="edit-profile-btn">Edit Profile</a>
+            </div>
+        </div>
 
             <div class="profile-info">
                 <div class="info-column">
                     <div class="form-group">
                         <label for="firstName">First Name:</label>
-                        <input type="text" id="firstName" value="Victoria Anne" readonly>
+                        <input type="text" id="firstName" value="<?php echo htmlspecialchars($user['first_name']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="middleName">Middle Name:</label>
-                        <input type="text" id="middleName" value="N/A" readonly>
+                        <input type="text" id="middleName" value="<?php echo htmlspecialchars($user['middle_name'] ?? 'N/A'); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="lastName">Last Name:</label>
-                        <input type="text" id="lastName" value="Garcia" readonly>
+                        <input type="text" id="lastName" value="<?php echo htmlspecialchars($user['last_name']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address:</label>
-                        <input type="email" id="email" value="vicanne26@gmail.com" readonly>
+                        <input type="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number:</label>
-                        <input type="text" id="phone" value="09278680398" readonly>
+                        <input type="text" id="phone" value="<?php echo htmlspecialchars($user['phone_number']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="dob">Date of Birth:</label>
-                        <input type="text" id="dob" value="06-11-97" readonly>
+                        <input type="text" id="dob" value="<?php echo htmlspecialchars($formatted_dob); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender:</label>
-                        <input type="text" id="gender" value="Female" readonly>
+                        <input type="text" id="gender" value="<?php echo htmlspecialchars($user['gender']); ?>" readonly>
                     </div>
                 </div>
                 <div class="info-column">
                     <div class="form-group">
                         <label for="region">Region:</label>
-                        <input type="text" id="region" value="NCR" readonly>
+                        <input type="text" id="region" value="<?php echo htmlspecialchars($user['region']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="province">Province:</label>
-                        <input type="text" id="province" value="Metro Manila" readonly>
+                        <input type="text" id="province" value="<?php echo htmlspecialchars($user['province']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="city">City/Municipality:</label>
-                        <input type="text" id="city" value="Caloocan City" readonly>
+                        <input type="text" id="city" value="<?php echo htmlspecialchars($user['city']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="barangay">Barangay:</label>
-                        <input type="text" id="barangay" value="Barangay 177" readonly>
+                        <input type="text" id="barangay" value="<?php echo htmlspecialchars($user['barangay']); ?>" readonly>
                     </div>
                     <div class="form-group">
                         <label for="zipCode">ZipCode:</label>
-                        <input type="text" id="zipCode" value="1400" readonly>
+                        <input type="text" id="zipCode" value="<?php echo htmlspecialchars($user['zip_code']); ?>" readonly>
                     </div>
                 </div>
             </div>
 
             <div class="action-buttons">
                 <button class="edit-password-btn">Edit Password</button>
-                <button class="logout-btn">Logout</button>
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
             </div>
         </div>
     </div>

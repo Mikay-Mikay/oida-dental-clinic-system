@@ -214,3 +214,19 @@ document.addEventListener("DOMContentLoaded", () => {
     generateCalendar(currentMonth, currentYear);
   });
   
+//notif bell
+document.addEventListener("DOMContentLoaded", function () {
+  const bellToggle = document.querySelector(".notification-toggle");
+  const wrapper = document.querySelector(".notification-wrapper");
+
+  bellToggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      wrapper.classList.toggle("show");
+  });
+
+  document.addEventListener("click", function (e) {
+      if (!wrapper.contains(e.target)) {
+          wrapper.classList.remove("show");
+      }
+  });
+});
