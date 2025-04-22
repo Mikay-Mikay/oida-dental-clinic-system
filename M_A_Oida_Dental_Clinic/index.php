@@ -19,7 +19,7 @@
         <nav class="navbar">
             <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
             <ul class="nav-links">
-                <li><a href="homepage.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="clinics.php">Clinics</a></li>
                 <li><a href="services.php">Services</a></li>
                 <li><a href="about.php">About</a></li>
@@ -27,15 +27,16 @@
                 <li><a href="contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-right">
-            <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
+                <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
+   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
+    <button class="book-now">Book Now</button>
+</a>
+
+<a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'login.php'; ?>"
    onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\');'; ?>">
     <div class="user-icon">
         <i class="fa-solid fa-user"></i>
     </div>
-</a>
-                <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
-   onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
-    <button class="book-now">Book Now</button>
 </a>
             </div>
         </nav>
@@ -45,22 +46,62 @@
         <div class="hero-text">
             <h1>Welcome to <span class="highlight">ISched of M&A Oida Dental Clinic</span></h1>
             <p><em>Where Every <span class="italic">Smile</span> Matters.</em></p>
-            <div class="stats">
-                <div class="stat"><strong>7 Clinics </strong>in the Philippines</div>
-                <div class="stat">Over <strong>50,000</strong> Customers</div>
+
+        <p class="intro-text">
+            With just a few clicks, you can organize your dental appointments using our
+            advanced online booking system. iSched will assist you with check-ups,
+            treatments, and follow-up appointments with high-level organization specific
+            to your needs.
+        </p>
+
+        <div class="stats">
+            <div class="stat">
+                <img src="assets/photos/location icon.png" 
+                    alt="Location icon" class="stat-icon">
+                <span class="stat-text">
+                <strong>7 Clinics</strong> in the Philippines
+                </span>
             </div>
-            <ul class="features">
-                <li>✅ Free Check Up</li>
-                <li>✅ Clean & Safe Environment</li>
-                <li>✅ Professional Dentists</li>
-                <li>✅ Friendly Staff</li>
-            </ul>
+
+            <div class="stat">
+                <img src="assets/photos/customers icon.png" 
+                    alt="Customers icon" class="stat-icon">
+                <span class="stat-text">
+                Over <strong>50,000</strong> Customers
+                </span>
+            </div>
+        </div>
+
+        <ul class="features">
+            <li>Clean &amp; Safe Environment</li>
+            <li>Friendly Staff</li>
+            <li>Professional Dentists</li>
+        </ul>
+
         </div>
         <div class="image-container">
-            <img src="assets/photos/clinic.jpg" alt="Clinic Front">
+            <img src="assets/photos/clinic.jpg"  alt="Clinic Front">
             <img src="assets/photos/clinic1.jpg" alt="Dental Chair">
             <img src="assets/photos/clinic2.jpg" alt="Dentists at Work">
+            <img src="assets/photos/clinics/veeners.png" alt="Dental Veneers">
         </div>
     </section>
+    <footer>
+        <p>&copy; 2025 ISched of M&A Oida Dental Clinic. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll(".nav-links a");
+
+        navLinks.forEach(link => {
+            if (link.getAttribute("href") === currentPath.split("/").pop()) {
+                link.classList.add("active");
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
