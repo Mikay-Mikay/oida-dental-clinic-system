@@ -1,13 +1,15 @@
 /* Reset Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-    background-color: #f8f9fa;
+    background-color: white;
     color: #333;
 }
 
@@ -17,8 +19,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background-color: #a6c8ff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #8fbaf3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
     top: 0;
     z-index: 1000;
@@ -27,17 +29,32 @@ body {
 .logo {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
+    border-radius: 50%;      /* keep it round */
+    overflow: hidden;         /* hide anything outside the circle */
+    object-fit: contain;      /* scale the entire logo inside */
+    background-color: white;   /* optional: fill any empty space with white */
+    display: block;           /* ensure object-fit works */
+    margin-left: 40px;
 }
 
+/* Make sure nav-links move to the right */
 .nav-links {
+    margin-left: auto;
+    margin-right: 80px;
     display: flex;
-    list-style: none;
+    align-items: center;
 }
 
 .nav-links li {
     margin: 0 15px;
+    list-style: none; /* This removes the bullet point */
+}
+
+/* Style for active link (clicked) */
+.nav-links a.active {
+    color: #0d6efd;
+    transform: scale(1.1);
+    font-weight: 700;
 }
 
 .nav-links a {
@@ -64,8 +81,9 @@ body {
     transition: width 0.3s ease-in-out;
 }
 
-.nav-links a:hover::after {
+.nav-links a.active::after {
     width: 100%;
+    background-color: #0d6efd;
 }
 
 /* User Icon & Book Now Button */
@@ -118,7 +136,7 @@ body {
 }
 
 .book-now {
-    background-color: #0d6efd;
+    background-color: #124085;
     color: white;
     padding: 8px 16px;
     border-radius: 8px;
@@ -131,6 +149,19 @@ body {
 .book-now:hover {
     background-color: #0b5ed7;
 }
+
+footer {
+    background-color: white; /* Dark background */
+    color: black; /* White text */
+    font-weight: 350;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    bottom: 0;
+    width: 100%;
+}
+
 
 .notification-wrapper {
     position: relative;
@@ -181,83 +212,173 @@ body {
 /* Hero Section */
 .hero {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
+    align-items: center;
     padding: 50px;
+    background-color: white; /* Light background for contrast */
+    margin: 20px auto;
+    max-width: 1200px; /* Center the content and limit width */
 }
 
 .hero-text {
     max-width: 50%;
+    padding-right: 20px;
 }
 
 .hero-text h1 {
-    font-size: 36px;
-    color: #003087;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.hero-text h1 .highlight {
+    color: #124085; /* Purple highlight */
 }
 
 .hero-text p {
-    font-style: italic;
-    color: #6c757d;
+    font-size: 1.2rem;
+    color: #124085;
+    font-weight: 500;
+    margin-bottom: 30px;
 }
 
-/* Statistics */
+.hero-text p .italic {
+    font-style: italic;
+    color: #6b42a5; /* Purple for emphasis */
+}
+
+.hero-text .intro-text {
+    font-size: 1.0rem;
+    color: black;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 20px 0;      /* space above & below */
+    margin-bottom: 30px;
+    text-align: justify;   /* this makes the text flush both left/right */
+}
+
+/* Stats container: flex with space between */
 .stats {
     display: flex;
+    gap: 20px;          /* gap *between* the two boxes */
+    margin-bottom: 30px;
+  }
+  
+  /* Each stat box: flex row, no wrap */
+  .stat {
+    display: flex;
     align-items: center;
-    margin-top: 20px;
-    gap: 15px;
+    gap: 10px;          /* space between icon & text */
+    flex-wrap: nowrap;  /* NEVER wrap to next line */
+    background-color: #e9ecef;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Icon sizing */
+  .stat-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  
+  /* Prevent the text from wrapping */
+  .stat-text {
+    white-space: nowrap;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Highlighted number */
+  .stat-text strong {
+    color: #6b42a5;
+    font-size: 1.2rem;
+  }
+
+  
+.stat strong {
+    font-size: 1.2rem;
+    color: #6b42a5; /* Purple for numbers */
 }
 
 .stats div {
     background: #e9ecef;
     padding: 10px 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
 }
 
-/* Features */
+/* FEATURES: two items per row, wrap to next line */
 .features {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 20px;
-    gap: 15px;
-}
-
-.features li {
+    gap: 10px 30px;                /* vertical gap =10px, horizontal gap =30px */
+    margin-top: 20px;              /* if you need more space above */
+  }
+  
+  .features li {
+    flex: 1 1 calc(50% - 30px);    /* two per row, account for the 30px gap */
+    list-style: none;
+    font-size: 1rem;
+    color: #333;
     display: flex;
     align-items: center;
-    list-style: none;
-}
-
+  }
+  
+  /* keep your checkmark before each item */
+  .features li::before {
+    content: "✅";
+    margin-right: 8px;
+    color: #6b42a5;
+  }
+  
 .features li i {
     color: green;
     margin-right: 5px;
 }
 
-/* Image Grid */
+/* Image Grid: 2 columns × 2 rows */
 .image-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    max-width: 600px;
-    margin: auto;
+    grid-auto-rows: 250px;    /* fixed height para pantay-pantay */
+    gap: 15px;                /* space between images */
+    max-width: 50%;           /* optional width limit */
+    margin: 0 auto;   
+    padding-left: 80px;        /* center the grid */
 }
 
 .image-container img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;              /* fill its cell */
+    height: 100%;             /* fill its cell */
+    border-radius: 10px;      /* rounded corners */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    object-fit: cover;        /* crop/scale to fit */
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
-/* Last image spans full width */
-.image-container img:last-child {
-    grid-column: span 2;
+.image-container img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+footer span {
+    color: #6b42a5; /* Purple for emphasis */
+}
 
 
 /* Responsive Design */
