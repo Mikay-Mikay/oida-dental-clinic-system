@@ -26,6 +26,21 @@ body {
     z-index: 1000;
 }
 
+/* Position the greeting away from the logo */
+.welcome-message {
+    margin-left: 50px;      /* shift right; adjust as needed */
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  /* Bold only the user’s name */
+  .welcome-message strong {
+    font-weight: 700;
+    color: black;          /* optional accent color */
+    margin-left: 4px;        /* small gap after comma */
+  }
+  
+
 .logo {
     width: 80px;
     height: 80px;
