@@ -16,10 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (empty($admin_id) || empty($password)) {
         $error = 'All fields are required.';
     } else {
-        // Prepare SQL Query
-        $sql = "SELECT admin_id, email, password_hash, name FROM admin_logins WHERE email = ? AND admin_id = ?";
-
+        // Prepare SQL Query (no 'name' column)
+        $sql = "SELECT admin_id, email, password_hash 
+                FROM admin_logins 
+                WHERE email = ? 
+                  AND admin_id = ?";
         $stmt = $conn->prepare($sql);
+
         if (!$stmt) {
             error_log("DB prepare failed: " . $conn->error);
             $error = 'Internal error, please try again later.';
@@ -30,13 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($res && $res->num_rows === 1) {
                 $row = $res->fetch_assoc();
-                var_dump($row); // Debugging: Check the data fetched from the database
+
                 // Verify Password
                 if (password_verify($password, $row['password_hash'])) {
                     session_regenerate_id(true);
                     $_SESSION['admin_id'] = $row['admin_id'];
                     $_SESSION['email']    = $row['email'];
-                    $_SESSION['name']     = $row['name']; // Save the admin name in session
                     header('Location: dashboard.php');
                     exit;
                 } else {
@@ -45,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $error = 'Email or Admin ID not found.';
             }
+
             $stmt->close();
         }
     }
@@ -67,21 +70,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="assets/photo/logo.jpg" alt="Logo" class="logo">
             <h1>Welcome Admin!</h1>
             <p>Please Login to Continue</p>
-            <?php if (!empty($error)): ?>
-                <p class="error-message"><?php echo $error; ?></p>
+            <?php if ($error): ?>
+                <p class="error-message"><?= htmlspecialchars($error) ?></p>
             <?php endif; ?>
             <form action="admin_login.php" method="POST">
                 <div class="form-group">
                     <label for="email"><i class="fa-solid fa-envelope"></i> Email:</label>
-                    <input type="email" name="email" id="email" placeholder="ex. Juandelacruz@gmail.com" required>
+                    <input type="email" name="email" id="email"
+                           placeholder="ex. Juandelacruz@gmail.com" required>
                 </div>
                 <div class="form-group">
                     <label for="admin_id"><i class="fa-solid fa-id-card"></i> Admin ID:</label>
-                    <input type="text" name="admin_id" id="admin_id" placeholder="ex. ADM-001" required>
+                    <input type="text" name="admin_id" id="admin_id"
+                           placeholder="ex. ADM-001" required>
                 </div>
                 <div class="form-group">
                     <label for="password"><i class="fa-solid fa-lock"></i> Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your Password" required>
+                    <input type="password" name="password" id="password"
+                           placeholder="Enter your Password" required>
                 </div>
                 <div class="form-options">
                     <div class="remember-me">
@@ -98,32 +104,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-    const loginButton = document.querySelector("button");
-    loginButton.addEventListener("click", (e) => {
-        // Get form input values
-        const email = document.querySelector("input[name='email']").value.trim();
-        const adminId = document.querySelector("input[name='admin_id']").value.trim();
-        const password = document.querySelector("input[name='password']").value.trim();
+    document.addEventListener("DOMContentLoaded", () => {
+        const loginButton = document.querySelector(".login-button");
+        loginButton.addEventListener("click", (e) => {
+            // Basic front-end validation
+            const email   = document.querySelector("#email").value.trim();
+            const adminId = document.querySelector("#admin_id").value.trim();
+            const password= document.querySelector("#password").value.trim();
 
-        // Validate inputs
-        if (!email || !adminId || !password) {
-            e.preventDefault(); // Prevent form submission
-            alert("All fields are required!");
-            return;
-        }
-
-        // Optional: Add more validation (e.g., email format)
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            e.preventDefault(); // Prevent form submission
-            alert("Please enter a valid email address!");
-            return;
-        }
-
-        alert("Login button clicked! Validation passed.");
+            if (!email || !adminId || !password) {
+                e.preventDefault();
+                alert("All fields are required!");
+                return;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                e.preventDefault();
+                alert("Please enter a valid email address!");
+            }
+        });
     });
-});
     </script>
 </body>
 </html>
