@@ -18,7 +18,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 5px 20px;
     background-color: #8fbaf3;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -42,8 +42,8 @@ body {
   
 
 .logo {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;      /* keep it round */
     overflow: hidden;         /* hide anything outside the circle */
     object-fit: contain;      /* scale the entire logo inside */
@@ -109,7 +109,7 @@ body {
 }
 
 .nav-right {
-    gap: 10px; /* Reduce gap between elements */
+    gap: 20px; /* Reduce gap between elements */
 }
 
 
@@ -167,8 +167,9 @@ body {
 
 footer {
     background-color: white; /* Dark background */
-    color: black; /* White text */
+    color: #555; /* White text */
     font-weight: 350;
+    font-size: 0.9rem;
     text-align: center;
     padding: 15px 0;
     font-size: 14px;
@@ -176,7 +177,6 @@ footer {
     bottom: 0;
     width: 100%;
 }
-
 
 .notification-wrapper {
     position: relative;
@@ -229,7 +229,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px;
+    padding: 5px;
     background-color: white; /* Light background for contrast */
     margin: 20px auto;
     max-width: 1200px; /* Center the content and limit width */
@@ -243,7 +243,7 @@ footer {
 .hero-text h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #333;
+    color: #6b42a5;
     margin-bottom: 20px;
 }
 
@@ -363,7 +363,8 @@ footer {
     grid-auto-rows: 250px;    /* fixed height para pantay-pantay */
     gap: 15px;                /* space between images */
     max-width: 50%;           /* optional width limit */
-    margin: 0 auto;   
+    margin: 0 auto;
+    margin-top: 20px;
     padding-left: 80px;        /* center the grid */
 }
 
@@ -380,19 +381,6 @@ footer {
 .image-container img:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 0.9rem;
-    color: #555;
-}
-
-footer span {
-    color: #6b42a5; /* Purple for emphasis */
 }
 
 
