@@ -1,13 +1,15 @@
 /* Reset Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-    background-color: #f8f9fa;
+    background-color: white;
     color: #333;
 }
 
@@ -16,28 +18,57 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background-color: #a6c8ff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px 20px;
+    background-color: #8fbaf3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
     top: 0;
     z-index: 1000;
 }
 
+/* Position the greeting away from the logo */
+.welcome-message {
+    margin-left: 50px;      /* shift right; adjust as needed */
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  /* Bold only the user’s name */
+  .welcome-message strong {
+    font-weight: 700;
+    color: black;          /* optional accent color */
+    margin-left: 4px;        /* small gap after comma */
+  }
+
 .logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;      /* keep it round */
+    overflow: hidden;         /* hide anything outside the circle */
+    object-fit: contain;      /* scale the entire logo inside */
+    background-color: white;   /* optional: fill any empty space with white */
+    display: block;           /* ensure object-fit works */
+    margin-left: 40px;
 }
 
+/* Make sure nav-links move to the right */
 .nav-links {
+    margin-left: auto;
+    margin-right: 80px;
     display: flex;
-    list-style: none;
+    align-items: center;
 }
 
 .nav-links li {
     margin: 0 15px;
+    list-style: none; /* This removes the bullet point */
+}
+
+/* Style for active link (clicked) */
+.nav-links a.active {
+    color: #0d6efd;
+    transform: scale(1.1);
+    font-weight: 700;
 }
 
 .nav-links a {
@@ -64,8 +95,9 @@ body {
     transition: width 0.3s ease-in-out;
 }
 
-.nav-links a:hover::after {
+.nav-links a.active::after {
     width: 100%;
+    background-color: #0d6efd;
 }
 
 /* User Icon & Book Now Button */
@@ -76,7 +108,7 @@ body {
 }
 
 .nav-right {
-    gap: 10px; /* Reduce gap between elements */
+    gap: 20px; /* Reduce gap between elements */
 }
 
 
@@ -118,7 +150,7 @@ body {
 }
 
 .book-now {
-    background-color: #0d6efd;
+    background-color: #124085;
     color: white;
     padding: 8px 16px;
     border-radius: 8px;
@@ -131,6 +163,19 @@ body {
 .book-now:hover {
     background-color: #0b5ed7;
 }
+
+footer {
+    background-color: white; /* Dark background */
+    color: black; /* White text */
+    font-weight: 350;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    bottom: 0;
+    width: 100%;
+}
+
 
 .notification-wrapper {
     position: relative;
@@ -244,17 +289,6 @@ body {
     justify-content: center;
 }
 
-
-.modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.3s ease-in-out;
-}
-
 /* Close Button */
 .close {
     position: absolute;
@@ -271,8 +305,9 @@ body {
 
 /* Book Now Button Inside Modal */
 .modal .book-now {
-    background-color: #0d6efd;
+    background-color:  #124085;
     color: white;
+    font-weight: bold;
     padding: 10px 20px;
     border-radius: 8px;
     font-weight: bold;
@@ -304,5 +339,146 @@ body {
     }
     to {
         transform: translateY(0);
+    }
+}
+
+/* Modal */
+
+/* Modal container */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+/* Modal content */
+.modal-content {
+    background: white;
+    margin: 15% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    border-radius: 12px;
+    width: 150%;
+    max-width: 900px;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 30px;
+    align-items: center; /* vertically center content */
+    position: relative;
+}
+
+/* Image styling */
+.modal-content img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Text section */
+.modal-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* center the text vertically */
+    flex: 1;
+}
+
+/* Modal title */
+.modal-description h2 {
+    font-size: 24px;
+    color: #1e2f97;
+    margin-bottom: 10px;
+}
+
+/* Modal description */
+.modal-description p {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.book-now {
+    background-color: #124085;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+/* Close button */
+.modal .close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.modal .close:hover {
+    color: #000;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+footer span {
+    color: #6b42a5; /* Purple for emphasis */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        max-width: 100%;
+    }
+
+    .image-container {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-message {
+        color: #2c3e50;
+        font-weight: bold;
+        margin-left: 20px;
+        font-size: 1.1rem;
     }
 }
