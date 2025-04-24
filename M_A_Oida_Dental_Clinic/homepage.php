@@ -21,7 +21,7 @@ if(isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M&A Oida Dental Clinic</title>
+    <title>Home - ISched of M&A Oida Dental Clinic</title>
     <link rel="stylesheet" href="assets/css/homepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="assets/js/homepage.js"></script>
@@ -34,21 +34,23 @@ if(isset($_SESSION['user_id'])) {
 <body>
     <header>
         <nav class="navbar">
+        <a href="homepage.php">
             <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
+        </a>
             <?php if(isset($_SESSION['user_id']) && isset($user)): ?>
                 <div class="welcome-message">
                     Welcome, <strong><?= htmlspecialchars($user['first_name']) ?>!</strong>
                 </div>
             <?php endif; ?>
 
-            <ul class="nav-links">
-                <li><a href="homepage.php">Home</a></li>
-                <li><a href="clinics.php">Clinics</a></li>
-                <li><a href="services.php">Services</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="reviews.php">Reviews</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
-            </ul>
+        <ul class="nav-links">
+            <li><a href="index.php"    class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php')   echo 'active'; ?>">Home</a></li>
+            <li><a href="clinics.php"  class="<?php if(basename($_SERVER['PHP_SELF'])=='clinics.php') echo 'active'; ?>">Clinics</a></li>
+            <li><a href="services.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='services.php') echo 'active'; ?>">Services</a></li>
+            <li><a href="about.php"    class="<?php if(basename($_SERVER['PHP_SELF'])=='about.php')    echo 'active'; ?>">About</a></li>
+            <li><a href="reviews.php"  class="<?php if(basename($_SERVER['PHP_SELF'])=='reviews.php') echo 'active'; ?>">Reviews</a></li>
+            <li><a href="contact.php"  class="<?php if(basename($_SERVER['PHP_SELF'])=='contact.php') echo 'active'; ?>">Contact Us</a></li>
+        </ul>
 
             <div class="nav-right">
     <!-- 1. Book Now button -->
@@ -84,8 +86,6 @@ if(isset($_SESSION['user_id'])) {
 </div>
         </nav>
     </header>
-
-
 
     <section id="home" class="hero">
         <div class="hero-text">
