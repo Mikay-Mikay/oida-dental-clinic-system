@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M&A Oida Dental Clinic</title>
+    <title>Home - ISched of M&A Oida Dental Clinic</title>
     <link rel="stylesheet" href="assets/css/homepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="assets/js/homepage.js"></script>
@@ -17,15 +17,18 @@
 <body>
     <header>
         <nav class="navbar">
+        <a href="index.php">
             <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="clinics.php">Clinics</a></li>
-                <li><a href="services.php">Services</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="reviews.php">Reviews</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
-            </ul>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.php"    class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php')   echo 'active'; ?>">Home</a></li>
+            <li><a href="clinics.php"  class="<?php if(basename($_SERVER['PHP_SELF'])=='clinics.php') echo 'active'; ?>">Clinics</a></li>
+            <li><a href="services.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='services.php') echo 'active'; ?>">Services</a></li>
+            <li><a href="about.php"    class="<?php if(basename($_SERVER['PHP_SELF'])=='about.php')    echo 'active'; ?>">About</a></li>
+            <li><a href="reviews.php"  class="<?php if(basename($_SERVER['PHP_SELF'])=='reviews.php') echo 'active'; ?>">Reviews</a></li>
+            <li><a href="contact.php"  class="<?php if(basename($_SERVER['PHP_SELF'])=='contact.php') echo 'active'; ?>">Contact Us</a></li>
+        </ul>
+
             <div class="nav-right">
                 <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'login.php'; ?>"
    onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\');'; ?>">
