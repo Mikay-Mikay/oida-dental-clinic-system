@@ -79,7 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <script src="assets/js/locations.js"></script>
-    <script src="assets/js/signup.js"></script>
     <link rel="stylesheet" href="assets/css/signup.css?v=2.1">
 </head>
 <body>
@@ -185,12 +184,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="login-link">Already have an account? <a href="login.php">Log In</a></p>
             </form>
         </div>
-</div>
+    </div>
 
-        <!-- ✅ LOGO SECTION BALIK DITO -->
-        <div class="logo-container">
-            <img src="assets/photos/logo.jpg" alt="M&A Oida Dental Clinic">
-            <h3>M&A Oida Dental Clinic</h3>
-        </div>
+    <!-- ✅ LOGO SECTION BALIK DITO -->
+    <div class="logo-container">
+        <img src="assets/photos/logo.jpg" alt="M&A Oida Dental Clinic">
+        <h3>M&A Oida Dental Clinic</h3>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/signup.js"></script>
 </body>
 </html>
