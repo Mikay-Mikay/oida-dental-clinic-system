@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Dental Check-ups & Consultation",
             description: "Regular examinations of the teeth and oral cavity to assess overall dental health and detect potential issues. This service includes a detailed consultation and the development of a personalized treatment plan."
         },
-        "cleaning.jpg": {
+        "cleaning.png": {
             title: "Teeth Cleaning (Oral Prophylaxis)",
             description: "A professional cleaning procedure designed to remove plaque and tartar buildup from the teeth. This service helps prevent tooth decay and gum disease."
         },
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Teeth Whitening",
             description: "A professional treatment designed to brighten your smile by removing stains and discoloration, resulting in a noticeably whiter smile.",
         },
-        "veeners.png": {
+        "veneers.png": {
             title: "Dental Veeners",
             description: "Custom-made, thin porcelain shells that are bonded to the front of your teeth to enhance their appearance by improving shape, color, and overall alignment.",
         },
