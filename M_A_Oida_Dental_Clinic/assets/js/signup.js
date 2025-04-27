@@ -1,87 +1,125 @@
-document.addEventListener("DOMContentLoaded", function () {
-    if (typeof locations !== "undefined") {
-        populateRegions();
-    } else {
-        console.error("locations data is missing!");
+// --- Cascading Address Dropdown Integration with Debugging ---
+// Uses jQuery for AJAX and DOM manipulation
+// JSON files are in assets/js/integrate/ relative to signup.php
+
+$(document).ready(function() {
+    // Load Regions
+    function loadRegions() {
+        $.getJSON('assets/js/integrate/refregion.json', function(data) {
+            const regionSelect = $('#region');
+            regionSelect.empty().append('<option value="">Select a Region</option>');
+            $.each(data, function(index, region) {
+                regionSelect.append('<option value="'+ region.region_id +'">'+ region.region_description +'</option>');
+            });
+        }).fail(function(jqxhr, textStatus, error) {
+            console.error('Failed to load regions:', textStatus, error);
+        });
     }
+    // Load Provinces based on Region
+    function loadProvinces(regionId) {
+        $('#province').empty().append('<option value="">Select a Province</option>');
+        $('#city').empty().append('<option value="">Select a City/Municipality</option>');
+        $('#barangay').empty().append('<option value="">Select a Barangay</option>');
+        if(regionId) {
+            $.getJSON('assets/js/integrate/refprovince.json', function(data) {
+                let found = false;
+                console.log('Selected regionId:', regionId);
+                console.log('Provinces loaded:', data);
+                $.each(data, function(index, province) {
+                    console.log('Checking province:', province);
+                    if(String(province.region_id) === String(regionId)) {
+                        $('#province').append('<option value="'+ province.province_id +'">'+ province.province_name +'</option>');
+                        found = true;
+                    }
+                });
+                if (!found) { console.warn('No provinces found for region:', regionId); }
+            }).fail(function(jqxhr, textStatus, error) {
+                console.error('Failed to load provinces:', textStatus, error);
+            });
+        }
+    }
+    // Load Cities based on Province
+    function loadCities(provinceId) {
+        $('#city').empty().append('<option value="">Select a City/Municipality</option>');
+        $('#barangay').empty().append('<option value="">Select a Barangay</option>');
+        if(provinceId) {
+            $.getJSON('assets/js/integrate/refcity.json', function(data) {
+                let found = false;
+                console.log('Selected provinceId:', provinceId);
+                console.log('Cities loaded:', data);
+                $.each(data, function(index, city) {
+                    console.log('Checking city:', city);
+                    if(String(city.province_id) === String(provinceId)) {
+                        $('#city').append('<option value="'+ city.municipality_id +'">'+ city.municipality_name +'</option>');
+                        found = true;
+                    }
+                });
+                if (!found) { console.warn('No cities found for province:', provinceId); }
+            }).fail(function(jqxhr, textStatus, error) {
+                console.error('Failed to load cities:', textStatus, error);
+            });
+        }
+    }
+    // Load Barangays based on City
+    function loadBarangays(cityId) {
+        $('#barangay').empty().append('<option value="">Select a Barangay</option>');
+        if(cityId) {
+            $.getJSON('assets/js/integrate/refbrgy.json', function(data) {
+                let found = false;
+                console.log('Selected cityId:', cityId);
+                console.log('Barangays loaded:', data);
+                $.each(data, function(index, brgy) {
+                    console.log('Checking barangay:', brgy);
+                    if(String(brgy.municipality_id) === String(cityId)) {
+                        $('#barangay').append('<option value="'+ brgy.barangay_id +'">'+ brgy.barangay_name +'</option>');
+                        found = true;
+                    }
+                });
+                if (!found) { console.warn('No barangays found for city:', cityId); }
+            }).fail(function(jqxhr, textStatus, error) {
+                console.error('Failed to load barangays:', textStatus, error);
+            });
+        }
+    }
+    // Event listeners
+    $('#region').on('change', function() {
+        const val = $(this).val();
+        console.log('Region selected:', val);
+        loadProvinces(val);
+    });
+    $('#province').on('change', function() {
+        const val = $(this).val();
+        console.log('Province selected:', val);
+        loadCities(val);
+    });
+    $('#city').on('change', function() {
+        const val = $(this).val();
+        console.log('City selected:', val);
+        loadBarangays(val);
+    });
+    // Initial load
+    loadRegions();
 
-    document.getElementById("region").addEventListener("change", updateProvinces);
-    document.getElementById("province").addEventListener("change", updateCities);
-    document.getElementById("city").addEventListener("change", updateBarangays);
+    // --- Keep your existing form submission logic below ---
 
-    // Handle form submission
-    const form = document.querySelector("form");
-    form.addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent default form submission
-
-        let formData = new FormData(form);
-
-        fetch("signup.php", {
-            method: "POST",
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        fetch('signup.php', {
+            method: 'POST',
             body: formData
         })
-        .then(response => response.json()) // Parse JSON response
+        .then(response => response.json())
         .then(data => {
-            if (data.status === "success") {
-                alert(data.message); // Show success message
-                window.location.href = "login.php"; // Redirect to login page
+            if (data.status === 'success') {
+                alert(data.message);
+                window.location.href = 'login.php';
             } else {
-                alert(data.message); // Show error message
+                alert(data.message);
             }
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => console.error('Error:', error));
     });
 });
 
-function populateRegions() {
-    let regionSelect = document.getElementById("region");
-    regionSelect.innerHTML = '<option value="">Select a Region</option>';
-    
-    for (let region in locations) {
-        let option = new Option(region, region);
-        regionSelect.add(option);
-    }
-}
-
-function updateProvinces() {
-    let region = document.getElementById("region").value;
-    let provinceSelect = document.getElementById("province");
-    provinceSelect.innerHTML = '<option value="">Select a Province</option>';
-    
-    if (region && locations[region]) {
-        for (let province in locations[region]) {
-            let option = new Option(province, province);
-            provinceSelect.add(option);
-        }
-    }
-}
-
-function updateCities() {
-    let region = document.getElementById("region").value;
-    let province = document.getElementById("province").value;
-    let citySelect = document.getElementById("city");
-    citySelect.innerHTML = '<option value="">Select a City/Municipality</option>';
-
-    if (region && province && locations[region][province]) {
-        for (let city in locations[region][province]) {
-            let option = new Option(city, city);
-            citySelect.add(option);
-        }
-    }
-}
-
-function updateBarangays() {
-    let region = document.getElementById("region").value;
-    let province = document.getElementById("province").value;
-    let city = document.getElementById("city").value;
-    let barangaySelect = document.getElementById("barangay");
-    barangaySelect.innerHTML = '<option value="">Select a Barangay</option>';
-
-    if (region && province && city && locations[region][province][city]) {
-        locations[region][province][city].forEach(barangay => {
-            let option = new Option(barangay, barangay);
-            barangaySelect.add(option);
-        });
-    }
-}
-
+// --- END Cascading Dropdown Integration ---
