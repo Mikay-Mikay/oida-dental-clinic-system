@@ -1,0 +1,168 @@
+/* Main Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #a6c8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Container Holding Signup Form and Logo */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 20px;
+    border: 6px solid #854ba2;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Signup Box Styling */
+.signup-box {
+    flex: 1;
+    padding: 30px;
+    background-color: #b2d3f7; /* light blue */
+    overflow-y: auto;
+  }
+
+.signup-box h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    position: relative;
+}
+
+.signup-box h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #854ba2;
+    margin: 10px auto 0;
+}
+
+/* Input Groups */
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.input-box {
+    flex: 1 1 45%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Terms & Checkbox */
+.terms {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* maliit na espasyo sa pagitan */
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.terms input[type="checkbox"] {
+    margin: 0; /* alisin default spacing */
+    width: 16px;
+    height: 16px;
+  }
+
+.terms a {
+    color: #6b42a5;
+    text-decoration: none;
+}
+
+.terms a:hover {
+    text-decoration: underline;
+}
+
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #854ba2;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #6a3683;
+}
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #6b42a5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Logo Container */
+.logo-container {
+    flex: 1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .logo-container img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%; /* <-- ito yung key para gawing bilog */
+    margin-bottom: 20px;
+    border: 4px solid white; /* optional, for border around the circle */
+  }
+  
+  .logo-container h3 {
+    font-size: 28px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  

@@ -1,0 +1,625 @@
+/* =======================
+   RESET AT GLOBAL STYLES
+   ======================= */
+ /* Reset Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #a6c8ff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #0d6efd;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 3px;
+  background-color: #0d6efd;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* User Icon & Book Now Button */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-right {
+  gap: 10px; /* Reduce gap between elements */
+}
+
+
+.user-icon {
+  font-size: 24px;
+  color: #003087;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1000; 
+   /* Add new properties */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #003087;
+  transition: all 0.3s ease;
+}
+
+.user-icon img.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block !important;
+  max-width: 100%;
+  min-height: 40px;
+}
+
+.user-icon .fa-user {
+  font-size: 1.2rem;
+}
+
+.user-icon:hover {
+  border-color: #0d6efd;
+  transform: scale(1.05);
+  color: #0d6efd; /* Merge with existing hover */
+}
+
+.book-now {
+  background-color: #0d6efd;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.book-now:hover {
+  background-color: #0b5ed7;
+}
+
+.notification-wrapper {
+  position: relative;
+}
+.notification-wrapper {
+  margin-left: 8px; /* Better alignment */
+}
+
+.notification-toggle {
+  font-size: 24px;
+  color: #003087;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.3s;
+}
+
+.notification-toggle:hover {
+  color: #0d6efd;
+}
+
+
+.notification-dropdown {
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 340px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.notification-wrapper.show .notification-dropdown {
+  display: block;
+}
+
+.notification-dropdown .empty-message {
+  text-align: center;
+  padding: 20px;
+  color: #555;
+  font-style: italic;
+}
+  /* (Iba pang navbar styles, hindi nabago) */
+  
+  /* ====================
+     FORM CONTAINER
+     ==================== */
+  .appointment-container {
+    background: #fff;
+    max-width: 900px;
+    width: 95%;             /* Gumagamit ng 95% ng available na width */
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* Tanggalin ang overflow: hidden upang hindi maputol ang content */
+    overflow: visible;
+    min-height: 600px;       /* Pwede mong i-adjust ang min-height kung kinakailangan */
+  }
+  
+  .form-title {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #1d2d5d;
+    margin-bottom: 20px;
+  }
+  
+  /* ====================
+     FORM TABS (Optional)
+     ==================== */
+  .form-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .tab-button {
+    padding: 10px 20px;
+    background-color: #eee;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .tab-button.active {
+    background-color: #a6c8ff;
+    border: 2px solid #0d6efd;
+  }
+  
+  /* ======================
+     PROGRESS BAR (6-8 Steps)
+     ====================== */
+  .progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .progress-bar .step {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 3px solid #ccc;
+    color: #999;
+    font-weight: 600;
+    min-width: 100px;
+  }
+  
+  .progress-bar .step.active {
+    border-bottom: 3px solid #7e3ff2;
+    color: #7e3ff2;
+  }
+  
+  /* =====================
+     FORM STEP DISPLAY
+     ===================== */
+  .form-step {
+    display: none;
+    width: 100%;
+  }
+  
+  .form-step.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* ====================
+     FORM FIELDS
+     ==================== */
+  .step-header {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #0d6efd;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+  }
+  
+  label {
+    font-weight: 600;
+    margin: 15px 0 5px;
+    display: block;
+  }
+  
+  .input-with-icon {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .input-with-icon input,
+  .input-with-icon select {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .input-with-icon i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+  }
+  
+  /* Ibang input field styles */
+  input[type="date"],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+  }
+  
+  /* ====================
+     BUTTONS
+     ==================== */
+  .btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .back-btn,
+  .submit-btn,
+  .next-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 120px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-btn,
+  .submit-btn {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .back-btn:hover {
+    background-color: #5a6268;
+  }
+  
+  .submit-btn {
+    background-color: #28a745;
+  }
+  
+  .submit-btn:hover {
+    background-color: #218838;
+  }
+  
+  .next-btn {
+    background-color: #7e3ff2;
+    color: #fff;
+  }
+  
+  .next-btn:hover {
+    background-color: #5a2bc1;
+  }
+  
+  /* ====================
+     SERVICES SECTION
+     ==================== */
+  .services-section {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .checkbox-grid label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 8px;
+  }
+  
+  /* ====================
+     NOTES & TIPS
+     ==================== */
+  .note, .tip {
+    font-size: 13px;
+    margin-top: 10px;
+    color: #777;
+  }
+  
+  .info-note {
+    font-size: 13px;
+    color: #333;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .info-note i {
+    color: #0d6efd;
+  }
+  
+  /* ====================
+     SCHEDULE SECTION
+     ==================== */
+  .schedule-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin-top: 20px;
+  }
+  
+  .schedule-container .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .schedule-container label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+  }
+  
+  /* TIME SLOT BUTTONS */
+  .time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  
+  .time-slot {
+    padding: 10px;
+    border: 2px solid #0d6efd;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #0d6efd;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+  }
+  
+  .time-slot:hover {
+    background-color: #e6f0ff;
+  }
+  
+  .time-slot.selected,
+  .time-slot.active {
+    background-color: #0d6efd;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .time-slot.booked {
+    background-color: #ccc;
+    color: #555;
+    cursor: not-allowed;
+  }
+  
+  /* Selected Info Display */
+  .selected-info {
+    margin-top: 15px;
+  }
+  
+  .selected-info span {
+    color: #7e3ff2;
+  }
+  
+  /* ====================
+     CALENDAR
+     ==================== */
+  .calendar-group {
+    margin-top: 20px;
+  }
+  
+  .calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f0f8ff;
+    border-radius: 8px;
+  }
+  
+  .calendar-nav button {
+    background: none;
+    border: 1px solid #0d6efd;
+    color: #0d6efd;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .calendar-nav button:hover {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+  
+  .month-year {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #1d2d5d;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  .calendar-header {
+    text-align: center;
+    padding: 10px;
+    background: #0d6efd;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .calendar-day {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .calendar-day:hover:not(.disabled) {
+    background: #e6f0ff;
+    transform: translateY(-2px);
+  }
+  
+  .calendar-day.selected {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0b5ed7;
+  }
+  
+  .calendar-day.disabled {
+    background: #f8f9fa;
+    color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* ====================
+     ERROR MESSAGES
+     ==================== */
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .input-with-icon.invalid .error-message {
+    opacity: 1;
+  }
+  
+  .input-with-icon.invalid input {
+    border-color: red;
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  
+  /* ====================
+     MEDIA QUERIES (Optional)
+     ==================== */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .appointment-container {
+      padding: 20px;
+    }
+    .btns {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .btns button {
+      width: 100%;
+    }
+  }
+  

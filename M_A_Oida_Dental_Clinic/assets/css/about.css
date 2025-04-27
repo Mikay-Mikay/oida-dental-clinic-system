@@ -1,0 +1,452 @@
+/* Reset Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: white;
+    color: #333;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: #8fbaf3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;      /* keep it round */
+    overflow: hidden;         /* hide anything outside the circle */
+    object-fit: contain;      /* scale the entire logo inside */
+    background-color: white;   /* optional: fill any empty space with white */
+    display: block;           /* ensure object-fit works */
+    margin-left: 40px;
+}
+
+/* Make sure nav-links move to the right */
+.nav-links {
+  margin-left: auto;
+  margin-right: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  margin: 0 15px;
+  list-style: none; /* This removes the bullet point */
+}
+
+/* Style for active link (clicked) */
+.nav-links a.active {
+  color: #0d6efd;
+  transform: scale(1.1);
+  font-weight: 700;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #0d6efd;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 3px;
+  background-color: #0d6efd;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-links a.active::after {
+  width: 100%;
+  background-color: #0d6efd;
+}
+
+/* User Icon & Book Now Button */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-right {
+  gap: 20px; /* Reduce gap between elements */
+}
+
+footer {
+    background-color: white; /* Dark background */
+    color: black; /* White text */
+    font-weight: 350;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    bottom: 0;
+    width: 100%;
+}
+
+.user-icon {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000; 
+     /* Add new properties */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #003087;
+    transition: all 0.3s ease;
+}
+
+.user-icon img.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block !important;
+    max-width: 100%;
+    min-height: 40px;
+}
+
+.user-icon .fa-user {
+    font-size: 1.2rem;
+}
+
+.user-icon:hover {
+    border-color: #0d6efd;
+    transform: scale(1.05);
+    color: #0d6efd; /* Merge with existing hover */
+}
+
+.book-now {
+    background-color: #124085;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+.notification-wrapper {
+    position: relative;
+}
+.notification-wrapper {
+    margin-left: 8px; /* Better alignment */
+}
+
+.notification-toggle {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+.notification-toggle:hover {
+    color: #0d6efd;
+}
+
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 340px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.notification-wrapper.show .notification-dropdown {
+    display: block;
+}
+
+.notification-dropdown .empty-message {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-style: italic;
+}
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.about-content {
+    max-width: 600px;
+}
+
+.about-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #124085;
+}
+
+.highlight {
+    color: #9058b2;
+}
+
+.about-content p {
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.about-content a {
+    color: #124085;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.about-content a:hover {
+    text-decoration: underline;
+}
+
+.experts-container {
+    display: flex;
+    gap: 60px;
+    position: relative;
+  }
+
+  /* The “blob” behind each photo */
+.blob {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background-color: #c2daff;
+    border-radius: 50% 50% 50% 60% / 70% 60% 40% 50%;
+    z-index: 0;
+  }
+  .blob-left  { top: 20px; left: 10px; transform: rotate(-10deg); }
+  .blob-right { top: 20px; left: 10px;  transform: rotate(10deg); }
+  
+  .expert {
+    position: relative;
+    text-align: center;
+    width: 200px;
+    z-index: 1;
+  }
+  
+.expert {
+    position: relative;
+    text-align: center;
+}
+
+.expert-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    position: relative;
+  }
+
+/* Label box under the image */
+.expert-label {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    background: white;
+    padding: 6px 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: black;
+  }
+
+  .expert-label em {
+    display: block;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  /* Text on the right */
+  .about-content {
+    max-width: 600px;
+  }
+  
+  .about-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  
+  .highlight {
+    color: #9058b2;
+  }
+  
+  .about-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+/* — Dental Helpers Section — */
+.dental-helpers {
+    max-width: 1300px;
+    margin: 80px auto;
+    padding: 0 20px 40px;
+    text-align: center;
+  }
+  .dental-helpers .helpers-heading {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+  
+  .dental-helpers .experts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    position: relative;
+  }
+  
+  .dental-helpers .blob {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background-color: #c2daff;
+    border-radius: 50% 50% 50% 60% / 70% 60% 40% 50%;
+    z-index: 0;
+  }
+  .dental-helpers .blob-left  { top: 20px; left: 10px;  transform: rotate(-10deg); }
+  .dental-helpers .blob-right { top: 20px; left: 10px;  transform: rotate(10deg); }
+  
+  .dental-helpers .expert {
+    position: relative;
+    width: 200px;
+    text-align: center;
+    z-index: 1;
+  }
+  .dental-helpers .expert-img {
+    width: 100%;
+    height: 290px;
+    border-radius: 10px;
+  }
+  .dental-helpers .expert-label {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    background: white;
+    padding: 6px 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  .dental-helpers .expert-label em {
+    display: block;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+/*–– “Other Experts” Section ––*/
+.other-experts {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px 40px;
+    text-align: center;
+  }
+  
+  .other-experts .other-heading {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+  
+  .other-experts .experts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    position: relative;
+  }
+  
+  .other-experts .blob {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background-color: #c2daff;
+    border-radius: 50% 50% 50% 60% / 70% 60% 40% 50%;
+    z-index: 0;
+  }
+  
+  .other-experts .blob-left  { top: 20px; left: 10px; transform: rotate(-10deg); }
+  .other-experts .blob-right { top: 20px; left: 10px; transform: rotate(10deg); }
+  
+  .other-experts .expert {
+    position: relative;
+    width: 200px;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .other-experts .expert-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .other-experts .expert-label {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    background: white;
+    padding: 6px 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  .other-experts .expert-label em {
+    display: block;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #666;
+  }
+  

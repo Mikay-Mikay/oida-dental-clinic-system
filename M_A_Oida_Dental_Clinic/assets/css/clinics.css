@@ -1,0 +1,453 @@
+/* Reset Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: white;
+    color: #333;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: #8fbaf3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 0;
+    z-index: 1000;
+}
+
+
+
+.logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;      /* keep it round */
+    overflow: hidden;         /* hide anything outside the circle */
+    object-fit: contain;      /* scale the entire logo inside */
+    background-color: white;   /* optional: fill any empty space with white */
+    display: block;           /* ensure object-fit works */
+    margin-left: 40px;
+}
+
+/* Make sure nav-links move to the right */
+.nav-links {
+    margin-left: auto;
+    margin-right: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    list-style: none; /* This removes the bullet point */
+}
+
+/* Style for active link (clicked) */
+.nav-links a.active {
+    color: #0d6efd;
+    transform: scale(1.1);
+    font-weight: 700;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    color: #0d6efd;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 3px;
+    background-color: #0d6efd;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+    background-color: #0d6efd;
+}
+
+/* User Icon & Book Now Button */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-right {
+    gap: 20px; /* Reduce gap between elements */
+}
+
+
+.user-icon {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000; 
+     /* Add new properties */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #003087;
+    transition: all 0.3s ease;
+}
+
+.user-icon img.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block !important;
+    max-width: 100%;
+    min-height: 40px;
+}
+
+.user-icon .fa-user {
+    font-size: 1.2rem;
+}
+
+.user-icon:hover {
+    border-color: #0d6efd;
+    transform: scale(1.05);
+    color: #0d6efd; /* Merge with existing hover */
+}
+
+.book-now {
+    background-color: #124085;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.book-now:hover {
+    background-color: #0b5ed7;
+}
+
+.notification-wrapper {
+    position: relative;
+}
+.notification-wrapper {
+    margin-left: 8px; /* Better alignment */
+}
+
+.notification-toggle {
+    font-size: 24px;
+    color: #003087;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+.notification-toggle:hover {
+    color: #0d6efd;
+}
+
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 340px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.notification-wrapper.show .notification-dropdown {
+    display: block;
+}
+
+.notification-dropdown .empty-message {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-style: italic;
+}
+main {
+    padding: 5px;
+}
+
+/*── make the whole section two-column on desktop ──*/
+.branches-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+.branches-info h1 {
+    color: #9370b8;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.clinic-name {
+    color: #003b87;
+    font-weight: bold;
+}
+
+.clinic-name-text {
+    color: #5c4bb8;
+    font-weight: bold;
+}
+
+.branches-info p {
+    color: #6b42a5;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.branches-info p .highlight {
+    color: #124085;    /* only these spans blue */
+  }
+
+/* replace .branch-buttons display:flex with a grid */
+.branch-buttons {
+    display: grid;
+    grid-template-columns: 1fr;    /* mobile: single column */
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+.branch-btn {
+    background-color: #9370b8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.branch-btn:hover {
+    background-color: #7d5ba6;
+}
+
+.branch-btn.active {
+    background-color: #5c4bb8;
+}
+
+.branch-details-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* → wrap image & card in position:relative so card can overlay */
+.branch-image-container {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .branch-image-container,
+  .map-container {
+    height: 290px;       /* both will now be exactly 300px tall */
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+
+#branch-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* the img and iframe already fill their parent */
+#branch-image,
+#branch-map {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* the white info-card overlay */
+.branch-info-card {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    max-width: 300px;
+    width: calc(100% - 32px);
+  }
+
+  .branch-info-card h2 {
+    color: #003b87;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+.branch-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.branch-display {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 500px;    /* reduce from 600px down to 500px */
+    margin-left: auto;
+  }
+
+
+.detail-section {
+    flex: 1;
+}
+
+.detail-section h3 {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  
+  .detail-section p {
+    color: #333;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+.map-container {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: auto !important;
+}
+
+.map-notice {
+    height: 100%;
+    display: flex;              /* to center its content */
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border: 1px dashed #ccc;
+    color: #666;
+    font-style: italic;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+
+#branch-map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+footer {
+    background-color: white; /* Dark background */
+    color: #555; /* White text */
+    font-weight: 350;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    bottom: 0;
+    width: 100%;
+}
+
+/* at ≥768px switch to two columns */
+@media (min-width: 768px) {
+    .branches-section {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    /* left side: header + desc + buttons */
+    .branches-info {
+      flex: 1;
+      max-width: 1000px;
+      padding-right: 20px;
+    }
+    /* right side: image + map stack */
+    .branch-display {
+      flex: 2;
+      margin-top: 0;          /* cancel any mobile top-margin */
+      margin-left: 20px;
+    }
+  }
+
+/* Responsive */
+@media (max-width: 992px) {
+    .branch-details-container {
+        flex-direction: column;
+    }
+    
+    .branch-info-card {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    @media (min-width: 768px) {
+        .branch-buttons {
+          grid-template-columns: 1fr 1fr;  /* desktop: two equal columns */
+          column-gap: 20px;               /* space between columns */
+        }
+      }
+}
+
+/* at wider breakpoints show image+card above map, same width */
+@media(min-width: 768px) {
+    .branch-display {
+      width: 600px;
+      margin-left: auto;
+    }
+  } 
