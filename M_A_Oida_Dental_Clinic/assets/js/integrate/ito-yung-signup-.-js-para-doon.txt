@@ -1,0 +1,133 @@
+document.addEventListener("DOMContentLoaded", function() {
+  
+  /* ===============================
+     Toggle Functions: Terms & Password
+     =============================== */
+  
+  function setupToggleFunctions() {
+    const termsCheckbox = document.getElementById('terms');
+    const registerButton = document.getElementById('register-btn');
+    if (termsCheckbox && registerButton) {
+      termsCheckbox.addEventListener('change', function() {
+        registerButton.disabled = !termsCheckbox.checked;
+      });
+    }
+    
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eye-icon');
+    if (togglePassword && passwordInput && eyeIcon) {
+      togglePassword.addEventListener('click', function() {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          eyeIcon.classList.remove('fa-eye');
+          eyeIcon.classList.add('fa-eye-slash');
+        } else {
+          passwordInput.type = 'password';
+          eyeIcon.classList.remove('fa-eye-slash');
+          eyeIcon.classList.add('fa-eye');
+        }
+      });
+    }
+  }
+  
+  /* ===============================
+     Load Data Functions
+     =============================== */
+  
+  // Load Regions mula sa refregion.json
+  function loadRegions() {
+    $.getJSON('refregion.json', function(data) {
+      const regionSelect = $('#region');
+      regionSelect.empty().append('<option value="">Select Region</option>');
+      $.each(data, function(index, region) {
+        regionSelect.append(
+          '<option value="'+ region.region_id +'">'+ region.region_description +'</option>'
+        );
+      });
+    });
+  }
+  
+  // Load Provinces batay sa napiling Region
+  function loadProvinces(selectedRegionId) {
+    $('#province').empty().append('<option value="">Select Province</option>');
+    $('#city').empty().append('<option value="">Select City</option>');
+    $('#barangay').empty().append('<option value="">Select Barangay</option>');
+    
+    if (selectedRegionId !== '') {
+      $.getJSON('refprovince.json', function(data) {
+        $.each(data, function(index, province) {
+          if (Number(province.region_id) === Number(selectedRegionId)) {
+            $('#province').append(
+              '<option value="'+ province.province_id +'">'+ province.province_name +'</option>'
+            );
+          }
+        });
+      });
+    }
+  }
+  
+  // Load Cities/Municipalities batay sa napiling Province
+  function loadCities(selectedProvinceId) {
+    $('#city').empty().append('<option value="">Select City</option>');
+    $('#barangay').empty().append('<option value="">Select Barangay</option>');
+    
+    if (selectedProvinceId !== '') {
+      $.getJSON('refcity.json', function(data) {
+        $.each(data, function(index, city) {
+          if (Number(city.province_id) === Number(selectedProvinceId)) {
+            $('#city').append(
+              '<option value="'+ city.municipality_id +'">'+ city.municipality_name +'</option>'
+            );
+          }
+        });
+      });
+    }
+  }
+  
+  // Load Barangays batay sa napiling City/Municipality
+  function loadBarangays(selectedCityId) {
+    $('#barangay').empty().append('<option value="">Select Barangay</option>');
+    
+    if (selectedCityId !== '') {
+      $.getJSON('refbrgy.json', function(data) {
+        $.each(data, function(index, brgy) {
+          if (Number(brgy.municipality_id) === Number(selectedCityId)) {
+            $('#barangay').append(
+              '<option value="'+ brgy.barangay_id +'">'+ brgy.barangay_name +'</option>'
+            );
+          }
+        });
+      });
+    }
+  }
+  
+  /* ===============================
+     Setup Event Listeners
+     =============================== */
+  
+  function setupEventListeners() {
+    $('#region').on('change', function() {
+      var selectedRegionId = $(this).val();
+      loadProvinces(selectedRegionId);
+    });
+    
+    $('#province').on('change', function() {
+      var selectedProvinceId = $(this).val();
+      loadCities(selectedProvinceId);
+    });
+    
+    $('#city').on('change', function() {
+      var selectedCityId = $(this).val();
+      loadBarangays(selectedCityId);
+    });
+  }
+  
+  /* ===============================
+     Initialization
+     =============================== */
+  
+  setupToggleFunctions();
+  loadRegions();
+  setupEventListeners();
+});

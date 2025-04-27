@@ -1,0 +1,77 @@
+/* Importing Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* Apply Poppins font globally */
+body {
+    font-family: 'Poppins', sans-serif; /* Sets the font family to Poppins */
+    display: flex; /* Enables flexbox */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    min-height: 100vh; /* Ensures the body takes full viewport height */
+    margin: 0; /* Removes default margin */
+    background-color: #fac08d !important;/* Keeps your warm orange background */
+}
+form {
+    width: 400px; /* Set the width */
+    padding: 40px; /* Padding inside the form */
+    background-color: white; /* Form background */
+    border-radius: 10px; /* Rounded corners */
+    color: black; /* Adjusted text color to be visible */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Poppins', sans-serif; /* Apply Poppins font to form */
+}
+
+form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+    font-family: 'Poppins', sans-serif; /* Apply font to header */
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}.input-box input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: black;
+    font-family: 'Poppins', sans-serif; /* Apply font to input fields */
+}
+
+.input-box input:focus {
+    outline: none;
+    border-color: #ccc;
+}
+
+.input-box i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f4a36c;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Poppins', sans-serif; /* Apply font to button */
+}
+
+.btn:hover {
+    background-color: #f4a36c;
+}
