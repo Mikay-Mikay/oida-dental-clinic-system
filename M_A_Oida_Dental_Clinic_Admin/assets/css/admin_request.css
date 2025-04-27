@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #5ba3f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #6c5b7b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+    background-color: #563d7c;
+}
+
+.request-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    text-align: center;
+}
+
+.request-card {
+    text-align: center;
+}
+
+.logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #c6c5c5;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+    grid-column: span 2; /* Make textarea span across two columns */
+    background-color: transparent; /* Alisin ang kulay ng background */
+    color: #333; /* Default na kulay ng text */
+}
+
+select {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff; /* Ginawang puti ang background */
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333; /* Default na kulay ng text */
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border kapag naka-focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Glow effect */
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.info-message {
+    font-size: 16px; /* Mas malaking font size */
+    color: #333; /* Mas matingkad na kulay */
+    margin-top: 15px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Mas malaking spacing sa pagitan ng icon at text */
+    grid-column: span 2; /* Span across two columns */
+}
+
+.info-message i {
+    font-size: 20px; /* Mas malaking icon */
+    color: #021529;
+}
+
+.submit-button {
+    grid-column: span 2; /* Make submit button span across two columns */
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #044081;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+.modal-warning {
+    color: red !important; /* Gawing pula ang text at pilitin ito */
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center; /* Siguraduhing naka-center */
+}
+
+.modal-content p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.close-modal {
+    padding: 10px 20px;
+    background-color: #642998;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.close-modal:hover {
+    background-color: #563d7c;
+}
+.confirm-submit {
+    padding: 10px 20px;
+    background-color: #7219c0;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.confirm-submit:hover {
+    background-color: #563d7c;
+}
