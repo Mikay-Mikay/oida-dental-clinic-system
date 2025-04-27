@@ -76,7 +76,7 @@ if(isset($_SESSION['user_id'])) {
                 </div>
                 <div class="service-item">
                     <p>Teeth Cleaning</p>
-                    <img src="assets/photos/clinics/cleaning.jpg" alt="Teeth Cleaning">
+                    <img src="assets/photos/clinics/cleaning.png" alt="Teeth Cleaning">
                 </div>
                 <div class="service-item">
                     <p>Tooth Extraction</p>
@@ -96,7 +96,7 @@ if(isset($_SESSION['user_id'])) {
                 </div>
                 <div class="service-item">
                     <p>Dental Veneers</p>
-                    <img src="assets/photos/clinics/veeners.png" alt="Dental Veneers">
+                    <img src="assets/photos/clinics/veneers.png" alt="Dental Veneers">
                 </div>
                 <div class="service-item">
                     <p>Metal Braces/Ceramic</p>
@@ -152,7 +152,7 @@ if(isset($_SESSION['user_id'])) {
                 </div>
                 <div class="service-item">
                     <p>Panoramic Xray/Full Mouth Xray</p>
-                    <img src="assets/photos/clinics/flouride.png" alt="Panoramic X-rays">
+                    <img src="assets/photos/clinics/panoramic.png" alt="Panoramic X-rays">
                 </div>
                 <div class="service-item">
                     <p>Lateral Cephalometric X-ray</p>
@@ -181,6 +181,9 @@ if(isset($_SESSION['user_id'])) {
         </div>
     </div>
 </div>
+<footer>
+        <p>&copy; 2025 ISched of M&A Oida Dental Clinic. All Rights Reserved.</p>
+    </footer>
 <script src="assets/js/services.js?v=1.1"></script> 
 </body>
 </html>
