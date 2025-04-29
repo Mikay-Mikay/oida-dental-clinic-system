@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         echo json_encode([
             "status" => "success",
-            "redirect" => "homepage.php"
+            "redirect" => "index.php"
         ]);
         exit();
         
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <body>
       <div class="login-container">
         <!-- Back Arrow -->
-        <a href="homepage.php" class="back-arrow">
+        <a href="index.php" class="back-arrow">
             <i class="fas fa-arrow-left"></i>
         </a>
           <div class="login-box">
@@ -85,7 +85,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                   <input type="email" id="email" name="email" placeholder="ex. Juandelacruz@gmail.com" required>
               
                   <label for="password">Password:</label>
-                  <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+                  <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                   <!-- REMEMBER ME -->
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    
                   <a href="forgotpassword.php" class="forgot-password">Forgot Password?</a>
                   
                   <button type="submit" class="login-btn">Login</button>
@@ -95,8 +102,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
           </div>
 </div>
           <div class="logo-container">
-              <img src="assets/photos/logo.jpg" alt="Clinic Logo">
-              <h1>M&A Oida Dental Clinic</h1>
+              <img src="assets/photos/logo-2.png" alt="Clinic Logo">
+              <h1>ISched of M&A Oida Dental Clinic</h1>
           </div>
     </body>
     </html>
