@@ -26,15 +26,16 @@ body {
     z-index: 1000;
 }
 
+
 .logo {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;      /* keep it round */
-    overflow: hidden;         /* hide anything outside the circle */
-    object-fit: contain;      /* scale the entire logo inside */
-    background-color: white;   /* optional: fill any empty space with white */
-    display: block;           /* ensure object-fit works */
-    margin-left: 40px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;      /* keep it round */
+  overflow: hidden;         /* hide anything outside the circle */
+  object-fit: contain;      /* scale the entire logo inside */
+  background-color: white;   /* optional: fill any empty space with white */
+  display: block;           /* ensure object-fit works */
+  margin-left: 40px;
 }
 
 /* Make sure nav-links move to the right */
@@ -109,42 +110,26 @@ footer {
     width: 100%;
 }
 
-.user-icon {
-    font-size: 24px;
-    color: #003087;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1000; 
-     /* Add new properties */
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #003087;
-    transition: all 0.3s ease;
-}
 
 .user-icon img.profile-pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block !important;
-    max-width: 100%;
-    min-height: 40px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  display: block !important;
+  max-width: 100%;
+  min-height: 40px;
 }
 
 .user-icon .fa-user {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .user-icon:hover {
-    border-color: #0d6efd;
-    transform: scale(1.05);
-    color: #0d6efd; /* Merge with existing hover */
+  border-color: #0d6efd;
+  transform: scale(1.05);
+  color: #0d6efd; /* Merge with existing hover */
 }
+
 
 .book-now {
     background-color: #124085;
@@ -208,13 +193,12 @@ footer {
     font-style: italic;
 }
 
+/* — About Section Wrapper —*/
 .about-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 20px;
+  display: block;            /* instead of flex */
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
 }
 
 .about-content {
@@ -308,6 +292,7 @@ footer {
   /* Text on the right */
   .about-content {
     max-width: 600px;
+    margin-left: 100px;
   }
   
   .about-content h2 {
@@ -449,4 +434,61 @@ footer {
     font-size: 0.8rem;
     color: #666;
   }
+
+/* --- About Header / Description --- */
+.about-header {
+  width: 100%;           /* full width ng parent (.about-section) */
+  max-width: none;       /* tanggalin ang limit */
+  margin: 0 auto 40px;   /* i-center vertically pero full width */
+  padding: 0 20px;       /* konting padding sa gilid */
+  box-sizing: border-box;
+}
+
+.about-header .about-content {
+  width: 100%;           /* full width ng .about-header */
+  max-width: none;       /* tanggalin ang cap */
+  text-align: justify;   /* justified text */
+  font-style: italic;    /* italic */
+  line-height: 1.6;
+  color: #333;
+  margin: 0 auto;
+  padding: 0;            /* kung gusto mo nang walang extra padding dito */
+}
+
+
+  /* Optional: limit to 90% of viewport so hindi umaabot ng buong edge */
+@media (min-width: 1024px) {
+  .about-header {
+    max-width: 90vw;
+  }
+}
+
+.about-header h2 {
+  font-size: 2.2rem;
+  color: #124085;
+  margin-bottom: 20px;
+  align-items: center;
+  text-align: center;
+}
+
+/* --- Experts Grid --- */
+.experts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 2 columns */
+  gap: 60px 40px; /* row-gap 60px, column-gap 40px */
+  justify-items: center;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+/* Optional: responsive stack on mobile */
+@media (max-width: 768px) {
+  .experts-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
   
