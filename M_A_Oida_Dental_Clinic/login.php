@@ -78,9 +78,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <a href="index.php" class="back-arrow">
             <i class="fas fa-arrow-left"></i>
         </a>
-          <div class="login-box">
-              <h2>Login</h2>
+        
+        <div class="login-box">
+            <!-- HEADER: logo + title -->
+            <div class="login-header">
+                <img src="assets/photos/logo-2.png" alt="Clinic Logo" class="login-logo">
+                <h2>Login</h2>
+            </div>
+
               <form id="login-form" action="login.php" method="POST">
+
                   <label for="email">Email:</label>
                   <input type="email" id="email" name="email" placeholder="ex. Juandelacruz@gmail.com" required>
               
@@ -101,10 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
               </form>
           </div>
 </div>
-          <div class="logo-container">
-              <img src="assets/photos/logo-2.png" alt="Clinic Logo">
-              <h1>ISched of M&A Oida Dental Clinic</h1>
-          </div>
     </body>
     </html>
 
