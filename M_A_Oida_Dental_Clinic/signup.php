@@ -77,44 +77,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Sign Up - ISched of M&A Oida Dental Clinic</title>
     <script src="assets/js/locations.js"></script>
+    <script src="assets/js/signup.js"></script>
     <link rel="stylesheet" href="assets/css/signup.css?v=2.1">
 </head>
 <body>
-    <div class="container">
-        <div class="signup-box">
-            <h2>Sign Up</h2>
-            <form id="signupForm" action="signup.php" method="POST">
+    <div class="container">   
+    <div class="signup-box">
+  <!-- HEADER: logo + title -->
+  <div class="signup-header">
+    <img src="assets/photos/logo-2.png" alt="Clinic Logo" class="signup-logo">
+    <h2>Sign Up</h2>
+  </div>
+
+  <form id="signupForm" action="signup.php" method="POST">
                 <div class="input-group">
                     <div class="input-box">
-                        <label>*First Name:</label>
+                        <label><strong style="color: red;">*</strong>First Name:</label>
                         <input type="text" name="first_name" placeholder="ex. Juan" required>
                     </div>
                     <div class="input-box">
                         <label>Middle Name:</label>
-                        <input type="text" name="middle_name" placeholder="ex. Mendano">
+                        <input type="text" name="middle_name" placeholder="ex. Medrano">
                     </div>
                 </div>
 
                 <div class="input-group">
                     <div class="input-box">
-                        <label>*Last Name:</label>
+                        <label><strong style="color: red;">*</strong>Last Name:</label>
                         <input type="text" name="last_name" placeholder="ex. Dela Cruz" required>
                     </div>
                     <div class="input-box">
-                        <label>*Email:</label>
+                        <label><strong style="color: red;">*</strong>Email:</label>
                         <input type="email" name="email" placeholder="ex. Juandelacruz@gmail.com" required>
                     </div>
                 </div>
 
                 <div class="input-group">
                     <div class="input-box">
-                        <label>*Phone Number:</label>
+                        <label><strong style="color: red;">*</strong>Phone Number:</label>
                         <input type="text" name="phone_number" placeholder="ex. 09123456789" required>
                     </div>
                     <div class="input-box">
-                        <label for="region">*Region:</label>
+                        <label for="region"><strong style="color: red;">*</strong>Region:</label>
                         <select id="region" name="region" onchange="updateProvinces()">
                             <option value="">Select a Region</option>
                         </select>
@@ -123,13 +129,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="input-group">
                     <div class="input-box">
-                        <label for="province">*Province:</label>
+                        <label for="province"><strong style="color: red;">*</strong>Province:</label>
                         <select id="province" name="province" onchange="updateCities()">
                             <option value="">Select a Province</option>
                         </select>
                     </div>
                     <div class="input-box">
-                        <label for="city">*City/Municipality:</label>
+                        <label for="city"><strong style="color: red;">*</strong>City/Municipality:</label>
                         <select id="city" name="city" onchange="updateBarangays()">
                             <option value="">Select a City/Municipality</option>
                         </select>
@@ -138,61 +144,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="input-group">
                     <div class="input-box">
-                        <label for="barangay">*Barangay:</label>
+                        <label for="barangay"><strong style="color: red;">*</strong>Barangay:</label>
                         <select id="barangay" name="barangay">
                             <option value="">Select a Barangay</option>
                         </select>
                     </div>
                     <div class="input-box">
-                        <label>*Zip Code:</label>
+                        <label><strong style="color: red;">*</strong>Zip Code:</label>
                         <input type="text" name="zip_code" placeholder="Enter a Zip Code" required>
                     </div>
                 </div>
 
                 <div class="input-group">
                     <div class="input-box">
-                        <label>*Date of Birth:</label>
+                        <label><strong style="color: red;">*</strong>Date of Birth:</label>
                         <input type="date" name="date_of_birth" required>
                     </div>
+
                     <div class="input-box">
-                        <label>*Password:</label>
+                        <label><strong style="color: red;">*</strong>Gender:</label>
+                        <select name="gender" required>
+                            <option value="">Select a Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Female">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <div class="input-box">
+                        <label><strong style="color: red;">*</strong>Password:</label>
                         <input type="password" name="password" placeholder="Enter your Password" required>
                     </div>
                 </div>
 
                 <div class="input-group">
                     <div class="input-box">
-                        <label>*Confirm Password:</label>
+                        <label><strong style="color: red;">*</strong>Confirm Password:</label>
                         <input type="password" name="confirm_password" placeholder="Re-type your Password" required>
-                    </div>
-                    <div class="input-box">
-                        <label>*Gender:</label>
-                        <select name="gender" required>
-                            <option value="">Select a Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
                     </div>
                 </div>
 
                 <div class="terms">
                     <input type="checkbox" required>
-                    <label>I agree to the <a href="terms.php" target="_blank">Terms & Conditions</a></label>
+                    <label>
+                    I agree to the 
+                    <a href="terms.php" target="_self">Terms &amp; Conditions</a>
+                    </label>
                 </div>
+
 
                 <button type="submit">Sign Up</button>
                 <p class="login-link">Already have an account? <a href="login.php">Log In</a></p>
             </form>
         </div>
-    </div>
-
-    <!-- ✅ LOGO SECTION BALIK DITO -->
-    <div class="logo-container">
-        <img src="assets/photos/logo.jpg" alt="M&A Oida Dental Clinic">
-        <h3>M&A Oida Dental Clinic</h3>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/signup.js"></script>
+</div>
 </body>
 </html>
