@@ -113,7 +113,7 @@ if (isset($_SESSION['user_id'])) {
     <h2><span class="highlight">Meet Our</span> <strong>Dental Experts</strong></h2>
     <div class="about-content">
       <p>
-        Welcome to <strong style="color: #124085">M&A Oida Dental Clinic</strong>, where excellence in dental care has been a tradition for 
+        Welcome to <strong style="color: #124085">ISched of M&A Oida Dental Clinic</strong>, where excellence in dental care has been a tradition for 
         <strong style="color: #124085">over 24 years</strong>. At the heart of our clinic are 
         <strong style="color: #124085">Dr. Marcial Oida</strong> and <strong style="color: #124085">Dr. Ardeen Dofiles Oida</strong>, a dedicated married couple who 
         lead with both expertise and compassion. Their combined experience and commitment to staying at the forefront of dental innovation ensure that every 
