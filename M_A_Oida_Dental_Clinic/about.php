@@ -159,5 +159,31 @@ if (isset($_SESSION['user_id'])) {
   <p>© 2025 M&A Oida Dental Clinic. All Rights Reserved.</p>
 </footer>
 
+<footer>
+  <p>&copy; 2025 ISched of M&A Oida Dental Clinic. All Rights Reserved.</p>
+</footer>
+
+<script>
+  // pass PHP login state
+  const isLoggedIn = <?= $user ? 'true' : 'false' ?>;
+</script>
+
+<script>  document.addEventListener("DOMContentLoaded", function () {
+    const bellToggle = document.querySelector(".notification-toggle");
+    const wrapper = document.querySelector(".notification-wrapper");
+
+    bellToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        wrapper.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!wrapper.contains(e.target)) {
+            wrapper.classList.remove("show");
+        }
+    });
+});
+  </script>
+
 </body>
 </html>
