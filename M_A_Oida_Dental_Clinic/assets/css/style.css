@@ -40,6 +40,16 @@ body {
     font-weight: 700;
 }
 
+.login-box h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #854ba2;
+    margin: 10px auto 0;
+ }
+ 
+
 .login-box label {
     display: flex;
     align-items: center;
