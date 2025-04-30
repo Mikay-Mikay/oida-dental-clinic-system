@@ -27,6 +27,20 @@ body {
 }
 
 
+/* Position the greeting away from the logo */
+.welcome-message {
+  margin-left: 50px;      /* shift right; adjust as needed */
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Bold only the user’s name */
+.welcome-message strong {
+  font-weight: 700;
+  color: black;          /* optional accent color */
+  margin-left: 4px;        /* small gap after comma */
+}
+
 .logo {
   width: 60px;
   height: 60px;
@@ -37,7 +51,6 @@ body {
   display: block;           /* ensure object-fit works */
   margin-left: 40px;
 }
-
 /* Make sure nav-links move to the right */
 .nav-links {
   margin-left: auto;
@@ -147,51 +160,52 @@ footer {
 }
 
 .notification-wrapper {
-    position: relative;
+  position: relative;
 }
 .notification-wrapper {
-    margin-left: 8px; /* Better alignment */
+  margin-left: 8px; /* Better alignment */
 }
 
 .notification-toggle {
-    font-size: 24px;
-    color: #003087;
-    cursor: pointer;
-    padding: 10px;
-    transition: color 0.3s;
+  font-size: 24px;
+  color: #003087;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.3s;
 }
 
 .notification-toggle:hover {
-    color: #0d6efd;
+  color: #0d6efd;
 }
 
 
 .notification-dropdown {
-    display: none;
-    position: absolute;
-    top: 45px;
-    right: 0;
-    width: 340px;
-    max-height: 400px;
-    overflow-y: auto;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    z-index: 1000;
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 340px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
 }
 
 .notification-wrapper.show .notification-dropdown {
-    display: block;
+  display: block;
 }
 
 .notification-dropdown .empty-message {
-    text-align: center;
-    padding: 20px;
-    color: #555;
-    font-style: italic;
+  text-align: center;
+  padding: 20px;
+  color: #555;
+  font-style: italic;
 }
+
 
 /* — About Section Wrapper —*/
 .about-section {
