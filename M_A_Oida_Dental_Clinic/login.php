@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>Login - M&A Oida Dental Clinic</title>
+      <title>Login - ISched of M&A Oida Dental Clinic</title>
       <link rel="stylesheet" href="assets/css/style.css?v=2.1">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
       <script src="assets/js/script.js"></script>
