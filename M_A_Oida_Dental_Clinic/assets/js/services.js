@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn   = modal.querySelector('.close');
     const bookBtn    = modal.querySelector('.modal-book-btn');
     const items      = document.querySelectorAll('.service-item');
+    
   
     // simple descriptions map (expand as needed)
     const descriptions = {
@@ -59,4 +60,3 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = 'bookings.php';
     });
   });
-  
