@@ -1,71 +1,133 @@
 /* Main Body Styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #a6c8ff;
+    font-family: "Poppins", sans-serif;
+    padding: 20px 0; 
+    background-color: #8fbaf3;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 0;
     margin: 0;
 }
 
 /* Container Holding Signup Form and Logo */
 .container {
     display: flex;
-    justify-content: space-between;
-    gap: 50px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;                    /* bawasan gap para magkasya */
     max-width: 1200px;
-    margin: auto;
-    background: #fff;
-    padding: 30px 40px;
+    width: 60%;                   /* gawing responsive sa lapad */
+    padding: 40px 20px; 
+    background: white;
     border-radius: 20px;
     border: 6px solid #854ba2;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
+
 
 
 /* Signup Box Styling */
 .signup-box {
-    flex: 1;
-    padding: 30px;
-    background-color: #b2d3f7; /* light blue */
-    overflow-y: auto;
+    flex: 1 1 auto;               /* flexible na lapad */
+    max-width: 1200px;                  /* full-width ng available space */
+    max-height: 80vh; 
+    width: 60%;
+    padding: 20px 20px;           /* dagdagan ng konti ang padding */
+    padding-bottom: 20px;
+    background-color: white;
+    overflow-y: auto;          
+    box-sizing: border-box;
+}
+
+
+.signup-box .input-group:nth-last-of-type(2),
+.signup-box .input-group:nth-last-of-type(1) {
+  display: contents; /* papayagan ang children mag-flow sa grid columns */
+}
+
+.signup-box .input-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .terms,
+  button,
+  .login-link {
+    grid-column: 1 / -1; /* span full width */
   }
 
 .signup-box h2 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
-    color: #333;
+    color: black;
     position: relative;
 }
 
 .signup-box h2::after {
     content: '';
     display: block;
-    width: 60px;
+    width: 80px;
     height: 2px;
     background-color: #854ba2;
     margin: 10px auto 0;
 }
 
+
+/* Header container: logo + title */
+.signup-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;        /* space between logo and text */
+    justify-content: center;  /* center horizontally */
+    margin-bottom: 20px;      /* space before form fields */
+    margin-right: 20px;
+  }
+  
+  /* Logo sizing */
+  .signup-logo {
+    width: 70px;      /* i-adjust kung gusto mong mas maliit/malaki */
+    height: 70px;
+    margin-right: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #6b42a5;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  }
+  
+  /* Optional: tweak h2 to align baseline */
+  .signup-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: black;
+  }  
+
 /* Input Groups */
+/* Kung gusto mong siguruhing hindi mag-wrap pag maluwang */
 .input-group {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;   /* o nowrap kung ayaw i-wrap */
     gap: 20px;
-}
-
-.input-box {
-    flex: 1 1 45%;
-}
+  }
+  
+  .input-group .input-box {
+    flex: 1 1 45%;     /* dalawang kalahati ng row */
+    min-width: 0;      /* para hindi mag-overflow */
+  }
 
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: 600;
     font-size: 14px;
-    color: #333;
+    color: black;
 }
 
 input,
@@ -73,10 +135,18 @@ select {
     width: 100%;
     padding: 10px 12px;
     font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 1.5px solid #b3ccfc;
+    border-radius: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
+    background: #f7faff;
+    transition: border 0.2s;
+}
+
+input:focus,
+select:focus {
+    border: 1.5px solid #6b42a5;
+    outline: none;
 }
 
 /* Terms & Checkbox */
@@ -90,17 +160,19 @@ select {
 
 .terms input[type="checkbox"] {
     margin: 0; /* alisin default spacing */
+    align-items: center;
     width: 16px;
     height: 16px;
   }
 
 .terms a {
-    color: #6b42a5;
+    color: blue;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .terms a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Button Styling */
@@ -108,7 +180,7 @@ button {
     width: 100%;
     padding: 12px;
     background-color: #854ba2;
-    color: #fff;
+    color: white;
     font-size: 16px;
     font-weight: bold;
     border: none;
@@ -126,43 +198,84 @@ button:hover {
     text-align: center;
     margin-top: 10px;
     font-size: 14px;
+    color: black;
+    font-weight: 400;
 }
 
 .login-link a {
-    color: #6b42a5;
+    color: blue;
     text-decoration: none;
     font-weight: bold;
 }
 
 .login-link a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
-/* Logo Container */
 .logo-container {
-    flex: 1;
-    color: white;
+    flex: 0 0 350px;       /* fixed width para pareho lagi */
+    text-align: center;
+    padding: 20px 0;   
+    margin-left: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 40px;
-  }
+    justify-content: center;
+    max-width: 250px;  
+    box-sizing: border-box;
+}
 
-  .logo-container img {
-    width: 140px;
-    height: 140px;
+.logo-container img,
+.clinic-logo {
+    width: 20px;    
+    height: 20px;
     object-fit: cover;
-    border-radius: 50%; /* <-- ito yung key para gawing bilog */
-    margin-bottom: 20px;
-    border: 4px solid white; /* optional, for border around the circle */
-  }
+    border-radius: 50%;
+    border: 4px solid #6b42a5;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    background: #fff;
+    margin-bottom: 18px;
+}
   
   .logo-container h3 {
-    font-size: 28px;
+    display: none;
+    padding: 12px 24px;
+    background-color: white;
+    border-radius: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 700;
     margin: 0;
-    font-weight: bold;
+}
+
+/* Responsiveness: logo on top sa tablet/mobile */
+@media (max-width: 992px) {
+    .container {
+      flex-direction: column;   /* logo above, form below */
+      align-items: center;
+      gap: 30px;
+    }
+    .logo-container {
+      order: 0;
+      margin: 0;
+    }
+    .signup-box {
+      order: 1;
+      width: 100%;
+      max-width: 600px;         /* o gusto mong limit */
+    }
   }
 
+  @media (max-width: 600px) {
+    .signup-box,
+    .logo-container {
+      width: 100%;                     /* full width sa mobile */
+      max-width: 400px;
+    }
+    .input-group {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
   
