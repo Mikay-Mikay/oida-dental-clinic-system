@@ -5,7 +5,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    padding: 20px 0; 
+    padding: 20px 0;
     background-color: #8fbaf3;
     display: flex;
     justify-content: center;
@@ -97,7 +97,7 @@ body {
     margin-right: 30px;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid #6b42a5;
+    border: 3px solid #6b42a5;
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
   }
   
