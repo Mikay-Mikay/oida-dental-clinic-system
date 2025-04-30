@@ -26,6 +26,7 @@ if (isset($_SESSION['user_id'])) {
   <title>Services - ISched of M&A Oida Dental Clinic</title>
   <link rel="stylesheet" href="assets/css/services.css">
   <link rel="stylesheet" href="assets/css/homepage.css">
+  <script src="assets/js/services.js" defer></script>
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -70,8 +71,8 @@ if (isset($_SESSION['user_id'])) {
         <button class="book-now">Book Now</button>
       </a>
 
-      <!-- NOTIFICATIONS: only when logged in -->
-      <?php if ($user !== null): ?>
+       <!-- NOTIFICATIONS: only when logged in -->
+       <?php if ($user !== null): ?>
         <div class="notification-wrapper">
           <div class="notification-toggle">
             <i class="fa-solid fa-bell"></i>
@@ -171,6 +172,22 @@ if (isset($_SESSION['user_id'])) {
   // pass PHP login state
   const isLoggedIn = <?= $user ? 'true' : 'false' ?>;
 </script>
-<script src="assets/js/services.js" defer></script>
+
+<script>  document.addEventListener("DOMContentLoaded", function () {
+    const bellToggle = document.querySelector(".notification-toggle");
+    const wrapper = document.querySelector(".notification-wrapper");
+
+    bellToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        wrapper.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!wrapper.contains(e.target)) {
+            wrapper.classList.remove("show");
+        }
+    });
+});
+  </script>
 </body>
 </html>
