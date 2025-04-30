@@ -42,8 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 300);
 });
 
-
-
 //Notifcation nav
 document.addEventListener("DOMContentLoaded", function () {
     const bellToggle = document.querySelector(".notification-toggle");
