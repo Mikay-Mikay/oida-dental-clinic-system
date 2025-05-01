@@ -1,103 +1,136 @@
 <?php 
 require_once('session.php');
-require_once('db.php'); // Add this if missing
+require_once('db.php');
 
-// Move user data fetching to the top
-if(isset($_SESSION['user_id'])) {
-    $stmt = $conn->prepare("SELECT first_name, profile_picture FROM patients WHERE id = ?");
+// 1) INITIALIZE
+$user = null;
+
+// 2) FETCH LOGGED-IN USER
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("
+      SELECT first_name, profile_picture 
+        FROM patients 
+       WHERE id = ?
+    ");
     $stmt->bind_param("i", $_SESSION['user_id']);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-    
-    // Add error handling
-    if(!$user) {
-        die("User not found in database");
-    }
+    $user = $stmt->get_result()->fetch_assoc() ?: null;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M&A Oida Dental Clinic</title>
-    <link rel="stylesheet" href="assets/css/contact.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="assets/js/contact.js"></script>
-    <script>
-        function redirectToProfile() {
-    window.location.href = 'profile.php'; // Palitan ito ng tamang URL para sa profile page
-}
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact Us - ISched of M&A Oida Dental Clinic</title>
+  <link rel="stylesheet" href="assets/css/contact.css">
+  <link rel="stylesheet" href="assets/css/homepage.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="assets/js/contact.js" defer></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
-            <?php if(isset($_SESSION['user_id']) && isset($user)): ?>
-                <div class="welcome-message">Welcome, <?= htmlspecialchars($user['first_name']) ?></div>
-                <?php endif; ?>
-            <ul class="nav-links">
-                <li><a href="homepage.php">Home</a></li>
-                <li><a href="clinics.php">Clinics</a></li>
-                <li><a href="services.php">Services</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="reviews.php">Reviews</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
-            </ul>
-            <div class="nav-right">
-                <a href="<?php echo isset($_SESSION['user_id']) ? 'profile.php' : 'javascript:void(0);' ?>"
-                onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to access your profile.\'); window.location.href=\'login.php\';' ?>">
-                <div class="user-icon">
-                    <?php if(isset($user) && !empty($user['profile_picture'])): ?>
-                        <img src="uploads/profiles/<?php echo htmlspecialchars($user['profile_picture']); ?>?<?php echo time() ?>" 
-                        alt="Profile Picture" class="profile-pic">
-                    <?php else: ?>
-                        <i class="fa-solid fa-user"></i>
-                    <?php endif; ?>
-                </div>
-            </a>
-            <?php if(isset($_SESSION['user_id'])): ?><div class="notification-wrapper">
-                <div class="notification-toggle">
-                    <i class="fa-solid fa-bell"></i>
-                </div>
-                <div class="notification-dropdown">
-                    <p class="empty-message">No notifications yet</p>
-                </div>
-    </div>
+<header>
+  <nav class="navbar">
+    <a href="index.php" class="logo-link">
+      <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
+    </a>
+
+    <?php if ($user !== null): ?>
+      <div class="welcome-message">
+        Welcome, <strong><?= htmlspecialchars($user['first_name']) ?>!</strong>
+      </div>
     <?php endif; ?>
 
-            <a href="<?php echo isset($_SESSION['user_id']) ? 'bookings.php' : 'javascript:void(0);' ?>"
-            onclick="<?php if (!isset($_SESSION['user_id'])) echo 'alert(\'Please login to book an appointment.\'); window.location.href=\'login.php\';' ?>">
-            <button class="book-now">Book Now</button>
+    <ul class="nav-links">
+      <li><a href="index.php"    <?= basename($_SERVER['PHP_SELF'])=='index.php'    ? 'class="active"' : '' ?>>Home</a></li>
+      <li><a href="services.php" <?= basename($_SERVER['PHP_SELF'])=='services.php' ? 'class="active"' : '' ?>>Services</a></li>
+      <li><a href="about.php"    <?= basename($_SERVER['PHP_SELF'])=='about.php'    ? 'class="active"' : '' ?>>About</a></li>
+      <li><a href="reviews.php"  <?= basename($_SERVER['PHP_SELF'])=='reviews.php'  ? 'class="active"' : '' ?>>Reviews</a></li>
+      <li><a href="contact.php"  <?= basename($_SERVER['PHP_SELF'])=='contact.php'  ? 'class="active"' : '' ?>>Contact Us</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="<?= $user !== null ? 'bookings.php' : 'login.php'; ?>"
+         <?= $user === null 
+              ? "onclick=\"alert('Please login to book an appointment.');\"" 
+              : '' ?>>
+        <button class="book-now">Book Now</button>
+      </a>
+
+      <?php if ($user !== null): ?>
+        <div class="notification-wrapper">
+          <div class="notification-toggle">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <div class="notification-dropdown">
+            <p class="empty-message">No notifications yet</p>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <a href="<?= $user !== null ? 'profile.php' : 'login.php'; ?>"
+         <?= $user === null 
+              ? "onclick=\"alert('Please login to view profile.');\"" 
+              : '' ?>>
+        <div class="user-icon">
+          <?php if ($user && !empty($user['profile_picture'])): ?>
+            <img src="uploads/profiles/<?= htmlspecialchars($user['profile_picture']) ?>?<?= time() ?>"
+                 alt="Profile Picture"
+                 class="profile-pic">
+          <?php elseif ($user): ?>
+            <i class="fa-solid fa-user"></i>
+          <?php else: ?>
+            <img src="assets/photos/profile_icon.png"
+                 alt="Profile Icon"
+                 class="profile-pic">
+          <?php endif; ?>
+        </div>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main class="contact-container">
+  <!-- branch photo -->
+  <img src="assets/photos/regalado_branch.png" alt="Regalado Branch" class="contact-image">
+
+  <div class="contact-info">
+    <h2>Contact Us</h2>
+    <p>
+      We would love to hear from you! Whether you have questions about our services, our friendly staff here to help.
+    </p>
+    <div class="contact-details">
+      <strong>Clinic Address:</strong> Unit A - Lot 30 Blk 9 Regalado Hi-way North Fairview<br>
+      <strong>Contact Number:</strong> 0918 578 2346<br>
+      <strong>Email:</strong>
+      <a href="mailto:naioby_2007@yahoo.ph">naioby_2007@yahoo.ph</a><br>
+      <strong>Social Media:</strong>
+        <a href="https://www.facebook.com/mandaoidadental?mibextid=ZbWKwL" target="_blank" rel="noopener">
+          <img src="assets/photos/fb-logo.png" alt="Facebook" class="social-logo">
         </a>
     </div>
-        </nav>
-    </header>
+  </div>
+</main>
 
+<h2 style="color: #124085; font-weight: bold; align-items: center; text-align: center;">Map of North Fairview Branch (Regalado)</h2>
 
-    <div class="contact-container">
-        <img src="clinic1.jpg" alt="Dental Chair" class="contact-image">
-        
-        <div class="contact-info">
-            <h2>Contact Us</h2>
-            <p>We would love to hear from you! Whether you have questions about our services or simply want to learn more about our clinic, our friendly team is here to help.</p>
-            
-            <div class="contact-details">
-                <strong>Commonwealth Branch:</strong> 0938 195 7571<br>
-                <strong>North Fairview Branch:</strong> 0918 578 2346<br>
-                <strong>Maligaya Branch:</strong> 0908 637 2386<br>
-                <strong>San Isidro Branch:</strong> 0920 600 6056<br>
-                <strong>Quiapo Branch:</strong> 0928 422 3905<br>
-                <strong>Kiko Branch:</strong> 0928 422 3905<br>
-                <strong>Naga Branch:</strong> 0963 377 8137<br><br>
-                
-                <strong>Email:</strong> <a href="mailto:naioby_2007@yahoo.ph">naioby_2007@yahoo.ph</a>
-            </div>
-        </div>
-    </div>
-    
+<!-- Google Map iframe (with pin at your clinic address) -->
+<div id="map-container" class="map-container">
+  <iframe
+    id="googleMap"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.0860597628844!2d121.0596292799073!3d14.711035491402756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b10d18e2494d%3A0x7ad9da87e3339a6d!2sM%20and%20A%20Oida%20Dental%20Clinic!5e1!3m2!1sen!2sph!4v1746116763981!5m2!1sen!2sph"
+    width="90%"
+    height="450"
+    style="border:0;"      <!-- keep only the border style -->
+    allowfullscreen=""
+    loading="lazy">
+  </iframe>
+</div>
+
+<footer>
+  <p class="text-center">© 2025 M&A Oida Dental Clinic. All Rights Reserved.</p>
+</footer>
 
 </body>
 </html>
