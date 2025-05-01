@@ -73,7 +73,7 @@ session_start();
             <p><strong style="font-weight: bold">Going to ANOTHER DENTIST:</strong> At any event that the patient goes to another dentist during the course of treatment without the knowledge/proper endorsement of the attending dentist and doesn't return for check-ups and adjustments thereafter. 
             The attending dentist has the right to claim against patient for breach in the course of treatment.</p>
 
-            <h2>PREDICTABLE FACTORS THAT CAN AFFECT THE OUTCOME OF ORTHODONTIC TREATMENT</h2>
+            <h2>UNPREDICTABLE FACTORS THAT CAN AFFECT THE OUTCOME OF ORTHODONTIC TREATMENT:</h2>
             <p><strong style="font-weight: bold">Muscle habits:</strong> Mouth breathing, thumb, finger or lip sucking, tongue thrusting and other unusual habits can prevent teeth from moving to their corrected positions or cause relapse after braces are removed.</p>
 
             <p><strong style="font-weight: bold">Facial Growth Patterns:</strong> Unusual skeletal patterns and insufficient or undesirable facial growth can compromise the dental results, affect a facial change and causes shifting of teeth during retention. Surgical assistance may be recommended in these situations.</p>
