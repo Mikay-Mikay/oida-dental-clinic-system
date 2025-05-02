@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2025 at 02:00 PM
+-- Generation Time: Apr 30, 2025 at 06:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,10 +43,12 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `patient_id`, `name`, `profile_picture`, `rating`, `text`, `services`, `date`) VALUES
-(1, NULL, 'mikaela somera', NULL, 5, 'Wow! amazing service, highly recommend', '', '2025-04-27 13:08:03'),
-(2, NULL, 'Anonymous', NULL, 4, 'hello ganda ng service grabe huhu di sila madamot sa kulay ng rubbers lahat available!', '', '2025-04-27 14:56:37'),
-(3, 11, 'Anonymous', NULL, 3, 'sadasdasd', '[\"Gum Treatment and Gingivectomy (Periodontal Care)\"]', '2025-04-27 17:37:52'),
-(4, 11, '', NULL, 5, 'superb! mabilis ang service at ang mura pa 🥰', '[\"Dental Bonding\"]', '2025-04-27 18:05:05');
+(7, 11, 'Mikaela Somera', NULL, 5, 'Napakagandang serbisyo! Mabilis at magalang ang staff. Highly recommended!', '[\"Metal Braces \\/ Ceramic Braces\"]', '2025-04-30 17:11:50'),
+(8, 11, 'Mikaela Somera', NULL, 4, 'Okay naman, pero medyo matagal maghintay. Maayos naman ang treatment', '[\"Teeth Whitening\"]', '2025-04-30 17:12:46'),
+(9, 11, 'Anonymous', NULL, 3, 'Average lang. Maayos ang dentist pero medyo masakit ang procedure.', '[\"Dental Bonding\"]', '2025-04-30 17:13:29'),
+(10, 11, 'Anonymous', NULL, 5, 'maganda ang service', '[\"Dental Check-ups & Consultation\"]', '2025-04-30 17:22:36'),
+(11, 11, 'Mikaela Somera', NULL, 4, 'masakit ang ngipin ko pero maganda ang service', '[\"Tooth Extraction\"]', '2025-04-30 17:24:17'),
+(12, 11, 'Anonymous', NULL, 2, 'bakit ganyan service niyo!! ang bagal!', '[\"Gum Treatment and Gingivectomy (Periodontal Care)\"]', '2025-05-01 00:03:47');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +69,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
