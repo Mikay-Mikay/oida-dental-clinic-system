@@ -124,7 +124,7 @@ if (isset($_SESSION['user_id'])) {
   <div class="image-container">
     <img src="assets/photos/clinic.jpg"  alt="Clinic Front">
     <img src="assets/photos/clinic1.jpg" alt="Dental Chair">
-    <img src="assets/photos/clinic2.jpg" alt="Dentists at Work">
+    <img src="assets/photos/regalado_branch.png" alt="Dentists at Work">
     <img src="assets/photos/clinics/veneers.png" alt="Dental Veneers">
   </div>
 </section>
