@@ -72,6 +72,46 @@ body {
     outline: none;
 }
 
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 1.5px solid #b3ccfc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f7faff;
+    transition: border 0.2s;
+    box-sizing: border-box;
+}
+
+.password-container input:focus {
+    border: 1.5px solid #6b42a5;
+    outline: none;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6b42a5;
+    margin-top: -5px;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.toggle-password:hover {
+    color: #8055aa;
+}
+
 .remember-me {
     display: flex;
     align-items: center;
