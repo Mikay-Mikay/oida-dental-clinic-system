@@ -2,6 +2,15 @@
 require_once('session.php');
 require 'db.php';
 
+// Helper function to capitalize names
+function capitalizeNames($name) {
+    $parts = explode(' ', trim($name));
+    $parts = array_map(function($part) {
+        return ucfirst(strtolower($part));
+    }, $parts);
+    return implode(' ', $parts);
+}
+
 $user_id = $_SESSION['user_id'];
 
 // Fetch existing user data
@@ -39,6 +48,11 @@ $error = '';
 $profile_picture = $user['profile_picture'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Sanitize and capitalize names
+    $first_name = capitalizeNames(filter_var(trim($_POST["first_name"]), FILTER_SANITIZE_STRING));
+    $middle_name = !empty($_POST["middle_name"]) ? capitalizeNames(filter_var(trim($_POST["middle_name"]), FILTER_SANITIZE_STRING)) : '';
+    $last_name = capitalizeNames(filter_var(trim($_POST["last_name"]), FILTER_SANITIZE_STRING));
+
     // Handle profile picture upload
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = 'uploads/profiles/';
@@ -75,9 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt = $conn->prepare($update_sql);
         $stmt->bind_param("sssssssssssssi",
-            $_POST['first_name'],
-            $_POST['middle_name'],
-            $_POST['last_name'],
+            $first_name,
+            $middle_name,
+            $last_name,
             $_POST['email'],
             $_POST['phone_number'],
             $mysql_date,
@@ -126,12 +140,12 @@ $formatted_dob = date('d-m-Y', strtotime($user['date_of_birth']));
             <div class="profile-content">
                 <div class="profile-pic-section">
                     <div class="profile-pic-container">
-                        <img src="uploads/profiles/<?php echo htmlspecialchars($user['profile_picture']); ?>" 
+                        <img id="profilePreview" src="uploads/profiles/<?php echo htmlspecialchars($user['profile_picture']); ?>" 
                             alt="Profile Picture" class="profile-pic">
                     </div>
                     <div class="form-group">
                         <label>Update Profile Picture:</label>
-                        <input type="file" name="profile_picture" accept="image/*">
+                        <input id="profileInput" type="file" name="profile_picture" accept="image/*">
                     </div>
                 </div>
 
@@ -250,6 +264,22 @@ $formatted_dob = date('d-m-Y', strtotime($user['date_of_birth']));
                 provinceSelect.appendChild(option);
             });
         });
+
+        // Image preview functionality
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('profilePreview');
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Add the onchange event to the file input
+        document.getElementById('profileInput').addEventListener('change', previewImage);
     </script>
 </body>
 </html>
