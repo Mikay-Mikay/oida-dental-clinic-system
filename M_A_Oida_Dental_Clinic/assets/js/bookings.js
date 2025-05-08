@@ -693,6 +693,8 @@ function validatePayment() {
 function initServiceSelection() {
     console.log('Initializing service selection...');
     
+    const MAX_SERVICES = 4; // Updated from 3 to 4
+    
     // Initialize selectedServices array if it doesn't exist
     if (!window.selectedServices) {
         window.selectedServices = [];
@@ -700,6 +702,7 @@ function initServiceSelection() {
     
     // Select all service cards with direct DOM query
     const serviceCards = document.querySelectorAll('.service-card');
+    const servicesError = document.getElementById('services-error');
     console.log(`Found ${serviceCards.length} service cards`);
     
     if (serviceCards.length === 0) {
@@ -730,7 +733,7 @@ function initServiceSelection() {
         card.setAttribute('tabindex', '0');
         card.setAttribute('aria-pressed', card.classList.contains('selected') ? 'true' : 'false');
         
-        // Get service information from data attributes (already in the HTML)
+        // Get service information from data attributes
         const serviceName = card.getAttribute('data-service-name');
         
         // Find associated checkbox
@@ -751,6 +754,18 @@ function initServiceSelection() {
                 event.stopPropagation();
             }
             
+            const currentlySelected = document.querySelectorAll('.service-card.selected').length;
+            const wasSelected = card.classList.contains('selected');
+            
+            // Check service limit
+            if (!wasSelected && currentlySelected >= MAX_SERVICES) {
+                if (servicesError) {
+                    servicesError.textContent = 'You can only select up to 4 services';
+                    servicesError.style.display = 'block';
+                }
+                return;
+            }
+
             // Get service information
             const serviceName = card.getAttribute('data-service-name');
             const servicePrice = parseInt(card.getAttribute('data-service-price'), 10) || 0;
@@ -759,9 +774,6 @@ function initServiceSelection() {
                 console.error('Service card missing data-service-name attribute', card);
                 return;
             }
-            
-            // Toggle selected class
-            const wasSelected = card.classList.contains('selected');
             
             // Find associated checkbox
             const checkbox = card.querySelector('input[type="checkbox"]');
@@ -777,7 +789,11 @@ function initServiceSelection() {
                 
                 // Show feedback
                 showFeedback(`Removed: ${serviceName}`);
-        } else {
+                // Clear any error message
+                if (servicesError) {
+                    servicesError.style.display = 'none';
+                }
+            } else {
                 // Add to selected
                 card.classList.add('selected');
                 card.classList.add('pulse-animation');
@@ -815,23 +831,18 @@ function initServiceSelection() {
             if (typeof updatePaymentSummary === 'function') {
                 updatePaymentSummary();
             }
-            
-            console.log('Selected services:', window.selectedServices);
         };
-        
+
         // Add click event listener
         card.addEventListener('click', toggleSelection);
         
         // Add touch event listeners
         card.addEventListener('touchstart', function(e) {
-            // Add active class on touch start
             card.classList.add('active-touch');
         }, { passive: true });
         
         card.addEventListener('touchend', function(e) {
-            // Remove active class
             card.classList.remove('active-touch');
-            // Only toggle if this is a tap (not a scroll)
             if (!window.isScrolling) {
                 toggleSelection(e);
             }
@@ -843,7 +854,6 @@ function initServiceSelection() {
         
         // Add keyboard event listener
         card.addEventListener('keydown', function(e) {
-            // Toggle on Enter or Space
             if (e.key === 'Enter' || e.key === ' ') {
                 toggleSelection(e);
             }
@@ -860,32 +870,6 @@ function initServiceSelection() {
             window.isScrolling = false;
         }, 100);
     }, { passive: true });
-    window.isScrolling = false;
-    
-    // Function to show feedback toast
-    function showFeedback(message) {
-        const feedbackEl = document.getElementById('selection-feedback');
-        if (!feedbackEl) return;
-        
-        feedbackEl.textContent = message;
-        feedbackEl.style.display = 'block';
-        
-        // Trigger reflow for animation
-        feedbackEl.offsetHeight;
-        
-        feedbackEl.style.opacity = '1';
-        
-        // Hide after 1.5 seconds
-        clearTimeout(window.feedbackTimeout);
-        window.feedbackTimeout = setTimeout(() => {
-            feedbackEl.style.opacity = '0';
-            setTimeout(() => {
-                feedbackEl.style.display = 'none';
-            }, 300);
-        }, 1500);
-    }
-    
-    console.log('Service selection initialization complete');
 }
 
 /**
