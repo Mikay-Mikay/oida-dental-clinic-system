@@ -6,16 +6,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
 require_once('session.php');
 require_once('db.php');
-require_once('includes/profile_functions.php');
-
-// Get user data for navigation
-$user = null;
-if (isset($_SESSION['user_id'])) {
-    $stmt = $conn->prepare("SELECT first_name, profile_picture FROM patients WHERE id = ?");
-    $stmt->bind_param("i", $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->get_result()->fetch_assoc() ?: null;
-}
 
 // Check if it's an AJAX request for form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
@@ -79,6 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit']) && !empty($
             
             $total = 0;
             if (!empty($allData['services']) && is_array($allData['services'])) {
+                // Check if more than 4 services are selected
+                if (count($allData['services']) > 4) {
+                    $errors['services'] = 'You can only select up to 4 services';
+                    $response['success'] = false;
+                    $response['errors'] = $errors;
+                    echo json_encode($response);
+                    exit;
+                }
                 foreach ($allData['services'] as $service) {
                     $total += $servicePrices[$service] ?? 0;
                 }
@@ -545,9 +543,7 @@ $branchAddress = $branchAddresses[$postData['clinic_branch'] ?? ''] ?? 'Address 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Booking - M&A Oida Dental Clinic</title>
     <link rel="stylesheet" href="assets/css/bookings.css?v=1.4">
-    <link rel="stylesheet" href="assets/css/homepage.css">
-    <link rel="stylesheet" href="assets/css/profile-icon.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <!-- Pass PHP data to JavaScript -->
   <script>
@@ -558,80 +554,6 @@ $branchAddress = $branchAddresses[$postData['clinic_branch'] ?? ''] ?? 'Address 
     <script src="assets/js/appointment_schedule.js?v=1.1" defer></script>
 </head>
 <body>
-<header>
-  <nav class="navbar">
-    <a href="index.php" class="logo-link">
-      <img src="assets/photos/logo.jpg" alt="Logo" class="logo">
-    </a>
-
-    <!-- only show welcome if logged in -->
-    <?php if ($user !== null): ?>
-      <div class="welcome-message">
-        Welcome, <strong><?= htmlspecialchars($user['first_name']) ?>!</strong>
-      </div>
-    <?php endif; ?>
-
-    <ul class="nav-links">
-      <li><a href="index.php"
-             <?php if(basename($_SERVER['PHP_SELF'])=='index.php') echo 'class="active"'; ?>>
-          Home</a></li>
-      <li><a href="services.php"
-             <?php if(basename($_SERVER['PHP_SELF'])=='services.php') echo 'class="active"'; ?>>
-          Services</a></li>
-      <li><a href="about.php"
-             <?php if(basename($_SERVER['PHP_SELF'])=='about.php') echo 'class="active"'; ?>>
-          About</a></li>
-      <li><a href="reviews.php"
-             <?php if(basename($_SERVER['PHP_SELF'])=='reviews.php') echo 'class="active"'; ?>>
-          Reviews</a></li>
-      <li><a href="contact.php"
-             <?php if(basename($_SERVER['PHP_SELF'])=='contact.php') echo 'class="active"'; ?>>
-          Contact Us</a></li>
-    </ul>
-
-    <div class="nav-right">
-      <!-- BOOK NOW -->
-      <a href="<?= $user !== null ? 'bookings.php' : 'login.php'; ?>"
-         <?= $user === null 
-              ? "onclick=\"alert('Please login to book an appointment.');\""
-              : '' ?>>
-        <button class="book-now active">Book Now</button>
-      </a>
-
-      <!-- NOTIFICATIONS: only when logged in -->
-      <?php if ($user !== null): ?>
-        <div class="notification-wrapper">
-          <div class="notification-toggle">
-            <i class="fa-solid fa-bell"></i>
-          </div>
-          <div class="notification-dropdown">
-            <p class="empty-message">No notifications yet</p>
-          </div>
-        </div>
-      <?php endif; ?>
-
-      <!-- PROFILE ICON -->
-      <a href="<?= $user !== null ? 'profile.php' : 'login.php'; ?>"
-         <?= $user === null 
-              ? "onclick=\"alert('Please login to view profile.');\""
-              : '' ?>>
-        <div class="user-icon">
-          <?php if ($user): ?>
-            <img
-              src="<?= get_profile_image_url($_SESSION['user_id'] ?? null) ?>?<?= time() ?>"
-              alt="Profile Picture"
-              class="profile-pic">
-          <?php else: ?>
-            <img src="assets/photos/default_avatar.png"
-                 alt="Profile Icon"
-                 class="profile-pic">
-          <?php endif; ?>
-        </div>
-      </a>
-    </div>
-  </nav>
-</header>
-
 <div class="container">
     <h1>Online Appointment Form</h1>
         

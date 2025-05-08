@@ -44,6 +44,15 @@ try {
         $services = [];
     }
     $services_list = implode(', ', $services);
+
+    // Validate that the number of selected services doesn't exceed 4
+    if (!empty($services) && is_array($services) && count($services) > 4) {
+        $errors['services'] = 'You can only select up to 4 services';
+        $response['success'] = false;
+        $response['errors'] = $errors;
+        echo json_encode($response);
+        exit;
+    }
     
     // Additional fields
     $consent = isset($_POST['consent']) ? 1 : 0;
